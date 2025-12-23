@@ -3,6 +3,9 @@
 Projekt zaliczeniowy z przedmiotu **Wstęp do Aplikacji Internetowych**.  
 Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszyka oraz historii zamówień.
 
+## Autorzy 
+-Anna Konieczna 
+-Alicja Czeleń 
 ## 📌 Funkcjonalności:
 
 ### 👤 Użytkownicy
@@ -34,7 +37,7 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 
 ---
 
-## 🧑‍💻 Użyte technologie
+##  Użyte technologie
 
 ### Frontend
 - React
@@ -46,6 +49,8 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 - lokalne pliki JSON
 - symulacja API
 - autoryzacja JWT (mock)
+## Użyte biblioteki
+-
 
 ---
 
