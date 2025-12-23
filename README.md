@@ -4,8 +4,8 @@ Projekt zaliczeniowy z przedmiotu **Wstęp do Aplikacji Internetowych**.
 Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszyka oraz historii zamówień.
 
 ## Autorzy 
--Anna Konieczna 
--Alicja Czeleń 
+- Anna Konieczna 
+- Alicja Czeleń 
 ## 📌 Funkcjonalności:
 
 ### 👤 Użytkownicy
