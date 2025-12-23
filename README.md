@@ -52,10 +52,3 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 ### Użyte biblioteki
 -
 
----
-
-## ⚙️ Instalacja i uruchomienie
-
-1. Klonowanie repozytorium:
-```bash
-git clone <URL_REPOZYTORIUM>
