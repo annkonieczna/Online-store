@@ -49,7 +49,7 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 - lokalne pliki JSON
 - symulacja API
 - autoryzacja JWT (mock)
-## Użyte biblioteki
+### Użyte biblioteki
 -
 
 ---
