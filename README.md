@@ -43,12 +43,12 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 - React
 - React Router
 - Context API
-- CSS / (np. Material UI / Bootstrap)
+- CSS
 
 ### Backend (mockowany)
 - lokalne pliki JSON
 - symulacja API
 - autoryzacja JWT (mock)
 ### Użyte biblioteki
--
+-Tailwind
 
