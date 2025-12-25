@@ -1,12 +1,8 @@
 import { useEffect } from "react";
 import Navbar from "./components/Navbar";
+import Photo from "./components/Photo";
 
 function App() {
-  //   useEffect(()=> {
-  //     fetch('https://fakestoreapiserver.reactbd.org/api/products/1')
-  //   .then(res => res.json())
-  //   .then(json => console.log(json));
-  // },[])
   return (
     <>
       <div className="relative w-full h-screen">
@@ -18,20 +14,32 @@ function App() {
           <source src="/jhope.mp4" type="video/mp4" />
         </video>
       </div>
-      <div className="text-[50px] flex flex-wrap items-center justify-center">
-        Experience our wide selection of products
-      </div>
-      <div className="flex flex-row flex-wrap justify-around">
-        <div className=" mt-5 ">
-          <img src="/female.jpg" className="rounded-[50px] h-120 w-67.5"></img>
-        </div>
-        <div className=" mt-5 ">
-          <img src="/man.jpg" className="rounded-[50px] h-120 w-67.5"></img>
-        </div>
-        <div className="  mt-5">
-          <img src="/kid.jpg" className="rounded-[50px] h-120 w-67.5"></img>
-        </div>
-      </div>
+
+      <div className="relative w-full min-h-screen mt-20 overflow-hidden">
+
+  {/* <video
+    className="absolute inset-0 w-full h-full object-cover"
+    autoPlay
+    muted
+    loop
+    playsInline
+  >
+    <source src="/black.mp4" type="video/mp4" />
+  </video> */}
+
+  <div className="relative z-10 ">
+    <div className="text-[50px] flex justify-center mb-12">
+      Experience our wide selection of products
+    </div>
+
+    <div className="flex flex-row flex-wrap justify-around">
+      <Photo image="/female.jpg" text="Women" />
+      <Photo image="/man.jpg" text="Men" />
+      <Photo image="/kids.jpg" text="Kids" />
+    </div>
+  </div>
+</div>
+      
     </>
   );
 }
