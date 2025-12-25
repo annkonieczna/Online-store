@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { UserRound, Menu, Search,  ShoppingBasket  }  from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 export default function Navbar() {
   const [hovered, setHovered] = useState(false);
 
@@ -15,9 +15,11 @@ export default function Navbar() {
           <button className="button cursor-pointer  flex flex-row ">
             <Menu /> Menu
           </button>
-          <button className="button cursor-pointer flex flex-row">
+          <Link to="/search">
+          <button className="button cursor-pointer flex flex-row" >
             <Search /> Search
           </button>
+          </Link>
         </div>
         <div className="font-bold text-[40px]">ANONYMOUS</div>
         <div className="navbar-right flex flex-row mr-5  gap-3.75">
