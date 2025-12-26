@@ -22,10 +22,10 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="font-bold text-[40px]">ANONYMOUS</div>
-        <div className="navbar-right flex flex-row mr-5  gap-3.75">
-          <button className="cursor-pointer">Contact us </button>
-          <button><UserRound className="cursor-pointer"/></button>
-          <button><ShoppingBasket className="cursor-pointer"/></button>
+        <div className="navbar-right flex flex-row mr-5 mt-5 gap-3.75">
+          <div><button className="cursor-pointer">Contact us </button></div>
+          <Link to={"/SignIn"}><button><UserRound className="cursor-pointer"/></button></Link>
+         <Link to={"/cart"}> <button><ShoppingBasket className="cursor-pointer flex flex-row"/></button></Link>
         </div>
         
       </nav>
