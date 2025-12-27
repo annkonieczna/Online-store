@@ -3,12 +3,15 @@
 Projekt zaliczeniowy z przedmiotu **Wstęp do Aplikacji Internetowych**.  
 Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszyka oraz historii zamówień.
 
-## Autorzy 
-- Anna Konieczna 
-- Alicja Czeleń 
+## Autorzy
+
+- Anna Konieczna
+- Alicja Czeleń
+
 ## 📌 Funkcjonalności:
 
 ### 👤 Użytkownicy
+
 - logowanie na zamockowane konta
 - rejestracja nowego użytkownika
 - zachowanie sesji użytkownika
@@ -17,6 +20,7 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
   - **admin** – usuwanie wszystkich opinii
 
 ### 🛍️ Produkty
+
 - pobranie listy produktów (mock API)
 - wyszukiwarka po nazwie
 - widok szczegółów produktu
@@ -24,6 +28,7 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 - dodawanie opinii (1 opinia na użytkownika)
 
 ### 🛒 Koszyk
+
 - dodawanie produktów do koszyka
 - usuwanie produktów z koszyka
 - przeliczanie wartości koszyka
@@ -31,24 +36,28 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 - dostęp do koszyka tylko dla zalogowanych użytkowników
 
 ### 📦 Zamówienia
+
 - lista zamówień użytkownika
 - historia zamówień
 - widok szczegółów pojedynczego zamówienia
 
 ---
 
-##  Użyte technologie
+## Użyte technologie
 
 ### Frontend
+
 - React
 - React Router
 - Context API
 - CSS
 
 ### Backend (mockowany)
+
 - lokalne pliki JSON
 - symulacja API
 - autoryzacja JWT (mock)
-### Użyte biblioteki
--Tailwind
 
+### Użyte biblioteki
+
+-Tailwind

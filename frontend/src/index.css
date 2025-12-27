@@ -4,3 +4,106 @@
 * {
   font-family: Playfair Display;
 }
+
+.heading {
+  border: 1px solid black;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  padding-left: 1vw;
+}
+.name {
+  font-weight: bold;
+}
+.input {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  margin-left: 2%;
+  width: 35vw;
+  height: 5vh;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  font-weight: lighter;
+  font-size: small;
+  border: 1px solid black;
+}
+.input-err {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  margin-left: 2%;
+  width: 35vw;
+  height: 5vh;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  font-weight: lighter;
+  font-size: small;
+  border: 1px solid red;
+}
+.label {
+  padding-bottom: 1%;
+  font-weight: initial;
+  padding-top: 1%;
+  font-size: medium;
+}
+.forms {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-self: center;
+  font-size: larger;
+  gap: 2vh;
+  justify-self: center;
+  align-content: center;
+  justify-content: center;
+  padding-left: 1vw;
+}
+.forms_bckgr {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 95vh;
+}
+main {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form_side {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.accept-bt {
+  background-color: black;
+  color: white;
+  height: 5vh;
+  width: 20%;
+  border-radius: 2vh;
+  margin: 5%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+}
+.accept-bt:hover {
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+}
+.link {
+  text-decoration: underline;
+}
+.error {
+  color: red;
+  font-size: 60%;
+  font-weight: lighter;
+}
