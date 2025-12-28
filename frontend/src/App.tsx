@@ -33,9 +33,10 @@ function App() {
     </div>
 
     <div className="flex flex-row flex-wrap justify-around">
-      <Photo image="/female.jpg" text="Women" />
       <Photo image="/man.jpg" text="Men" />
-      <Photo image="/kids.jpg" text="Kids" />
+      <Photo image="/female.jpg" text="Women" />
+      
+      <Photo image="https://plus.unsplash.com/premium_photo-1697183202112-19523c5e7250?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" text="Kids" />
     </div>
   </div>
 </div>
