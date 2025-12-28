@@ -33,7 +33,31 @@ export default function Search() {
           className=" flex justify-center items-center w-225 border rounded-[20px] "
         ></input>
       </div>
-      
+      {/* DROPDOWN */}
+        {text && (
+          <div className="absolute top-12.5 w-225 bg-white border rounded-xl shadow-lg max-h-75 overflow-y-auto">
+            {filteredClothes.length > 0 ? (
+              filteredClothes.map(item => (
+                <Link
+                  key={item.id}
+                  to={`/product/${item.id}`}
+                  onClick={() => setText("")}
+                >
+                  <div className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <p className="font-medium">{item.name}</p>
+                    <p className="text-sm text-gray-500">
+                      {item.category}
+                    </p>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="px-4 py-2 text-gray-400">
+                No results found
+              </div>
+            )}
+          </div>
+          )}
     </>
   );
 }
