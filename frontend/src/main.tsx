@@ -7,6 +7,7 @@ import Search from "./Search.tsx";
 import Cart from "./Cart.tsx";
 import SignIn from "./SignIn.tsx";
 import SignUp from "./SignUp.tsx";
+import Product from "./Product.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/SignIn" element={<SignIn />}></Route>
         <Route path="/SignUp" element={<SignUp />}></Route>
+        <Route path="/product" element={<Product id={1} />}></Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>
