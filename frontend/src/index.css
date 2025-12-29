@@ -99,6 +99,25 @@ main {
   color: black;
   cursor: pointer;
 }
+.accept-bt_reverse {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  height: 5vh;
+  width: 20%;
+  border-radius: 2vh;
+  margin: 5%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+}
+.accept-bt_reverse:hover {
+  background-color: black;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+}
 .link {
   text-decoration: underline;
 }
@@ -106,4 +125,8 @@ main {
   color: red;
   font-size: 60%;
   font-weight: lighter;
+}
+.comments {
+  color: grey;
+  font-size: smaller;
 }

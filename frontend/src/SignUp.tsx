@@ -82,7 +82,7 @@ export default function () {
                     className={` ${
                       pass_error || pass_empty ? "input-err" : "input"
                     }`}
-                    type="text"
+                    type="password"
                     value={pass}
                     onChange={(e) => setPass(e.target.value)}
                   />
@@ -96,7 +96,7 @@ export default function () {
                     className={` ${
                       pass_error || pass2_empty ? "input-err" : "input"
                     }`}
-                    type="text"
+                    type="password"
                     value={pass2}
                     onChange={(e) => setPass2(e.target.value)}
                   />
