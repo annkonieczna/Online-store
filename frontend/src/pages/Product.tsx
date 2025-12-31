@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Navbar from "./components/Navbar";
-import Quantity from "./components/quantity";
+import Navbar from "../components/Navbar";
+import Quantity from "../components/quantity";
 
 interface Opinion {
   id: number;
