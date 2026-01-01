@@ -28,25 +28,16 @@ export const ProductsProvider = ({ children }: any) => {
   });
 
   useEffect(() => {
-  fetch("https://fakestoreapiserver.reactbd.org/api/products")
-    .then(res => res.json())
-    .then(data => {
-      console.log("API DATA:", data);
-
-      const list =
-        Array.isArray(data)
-          ? data
-          : Array.isArray(data.data)
-          ? data.data
-          : [];
-
-      setProducts(list);
-    })
-    .catch(err => {
-      console.error("FETCH ERROR:", err);
-      setProducts([]);
-    });
-}, []);
+    fetch("https://fakestoreapiserver.reactbd.org/api/products")
+      .then((res) => res.json())
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        console.error("FETCH ERROR:", err);
+        setProducts([]);
+      });
+  }, []);
 
   const filteredProducts = products.filter((p) => {
     return (
