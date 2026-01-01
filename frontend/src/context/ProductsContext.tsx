@@ -1,4 +1,4 @@
-import { Children, createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export type Product = {
   id: number;
@@ -18,7 +18,7 @@ type Filters = {
 
 const ProductsContext = createContext<any>(null);
 
-export const ProductsProvider = ({ Children }: any) => {
+export const ProductsProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filters, setFilters] = useState<Filters>({
     search: "",
@@ -28,24 +28,43 @@ export const ProductsProvider = ({ Children }: any) => {
   });
 
   useEffect(() => {
-    fetch("https://fakestoreapiserver.reactbd.org/api/products")
-        .then(res => res.json())
-        .then(setProducts);
-    },[]);
+  fetch("https://fakestoreapiserver.reactbd.org/api/products")
+    .then(res => res.json())
+    .then(data => {
+      console.log("API DATA:", data);
 
-    const filteredProducts = products.filter(p => {
-        p.title.toLowerCase().includes(filters.search.toLowerCase()) &&
-        (filters.category === "all" || p.category === filters.category) && 
-        (p.price >= filters.minPrice && p.price <= filters.maxPrice)
+      const list =
+        Array.isArray(data)
+          ? data
+          : Array.isArray(data.data)
+          ? data.data
+          : [];
+
+      setProducts(list);
     })
+    .catch(err => {
+      console.error("FETCH ERROR:", err);
+      setProducts([]);
+    });
+}, []);
 
+  const filteredProducts = products.filter((p) => {
     return (
-        <>
-        <ProductsContext.Provider value={{products,filteredProducts,filters,setFilters}}>
-            {Children}
-        </ProductsContext.Provider>
-        </>
-    )
+      p.title.toLowerCase().includes(filters.search.toLowerCase()) &&
+      (filters.category === "all" || p.category === filters.category) &&
+      p.price >= filters.minPrice &&
+      p.price <= filters.maxPrice
+    );
+  });
+
+  return (
+    <>
+      <ProductsContext.Provider
+        value={{ products, filteredProducts, filters, setFilters }}
+      >
+        {children}
+      </ProductsContext.Provider>
+    </>
+  );
 };
 export const useProducts = () => useContext(ProductsContext);
-
