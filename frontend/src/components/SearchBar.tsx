@@ -9,7 +9,7 @@ export default function SearchBar() {
 
   return (
     <>
-      <div className="relative w-150">
+      <div className="relative w-250">
         <input
           value={filters.search}
           onChange={(e) => {
@@ -17,11 +17,11 @@ export default function SearchBar() {
             setOpen(true);
           }}
           placeholder="Search for products"
-          className="w-full p-3 rounded-full border shadow focus:outline-none"
+          className=" sticky w-full p-3 rounded-full border shadow focus:outline-none"
         ></input>
         {/* When it does not find matching reasults */}
         {open && filters.search && (
-          <div className="absolute top-14 w-full bg-white rounded-xl shadow-lg max-h-80 overflow-auto z-50">
+          <div className=" bg-white rounded-xl shadow-lg max-h-80 overflow-auto z-50">
             {filteredProducts.length === 0 && (
               <p className="p-4 text-red-500">No results</p>
             )}
