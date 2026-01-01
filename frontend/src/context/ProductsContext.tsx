@@ -1,4 +1,4 @@
-import { Children, createContext, useEffect, useState } from "react";
+import { Children, createContext, useContext, useEffect, useState } from "react";
 
 export type Product = {
   id: number;
@@ -38,5 +38,14 @@ export const ProductsProvider = ({ Children }: any) => {
         (filters.category === "all" || p.category === filters.category) && 
         (p.price >= filters.minPrice && p.price <= filters.maxPrice)
     })
+
+    return (
+        <>
+        <ProductsContext.Provider value={{products,filteredProducts,filters,setFilters}}>
+            {Children}
+        </ProductsContext.Provider>
+        </>
+    )
 };
+export const useProducts = () => useContext(ProductsContext);
 
