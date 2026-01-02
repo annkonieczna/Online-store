@@ -9,7 +9,7 @@ export default function Navbar() {
       <nav
         className={`navbar ${
           hovered
-            ? "bg-white border-t-2  border-b-2 border-black border-solid transition ease-in-out transform-[3s] "
+            ? "bg-white border-t  border-b border-black border-solid transition ease-in-out transform-[3s] "
             : "bg-transparent"
         } flex flex-row justify-between mb-2.5`}
         onMouseEnter={() => setHovered(true)}
@@ -25,7 +25,7 @@ export default function Navbar() {
             </button>
           </Link>
         </div>
-        <div className="font-bold text-[40px]">ANONYMOUS</div>
+        <Link to={"/"}><div className="font-bold text-[40px]">ANONYMOUS</div></Link>
         <div className="navbar-right flex flex-row mr-5 mt-5 gap-3.75">
           <div>
             <button className="cursor-pointer">Contact us </button>
