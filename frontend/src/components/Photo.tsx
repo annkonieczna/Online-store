@@ -1,12 +1,11 @@
 type HoverImageProps = {
-  image: string
-  text: string
-}
+  image: string;
+  text: string;
+};
 
 export default function Photo({ image, text }: HoverImageProps) {
   return (
     <div className="relative group overflow-hidden  cursor-pointer">
-      
       <img
         src={image}
         className="
@@ -47,5 +46,5 @@ export default function Photo({ image, text }: HoverImageProps) {
         </span>
       </div>
     </div>
-  )
+  );
 }
