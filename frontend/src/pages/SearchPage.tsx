@@ -20,12 +20,14 @@ export default function SearchPage() {
           <>
             <div
               key={product.id}
-              className="border p-3 rounded flex flex-col w-50 h-50"
+              className="border p-3 rounded flex flex-col w-50 h-50 "
             >
               <div className="flex items-center justify-center mt-2.5">
-                <img src={product.image} className="w-25 h-35 "></img>
+                <img src={product.image} className=" h-35 "></img>
               </div>
-              <div className="flex justify-center items-center flex-wrap">{product.title}</div>
+              <div className="flex justify-center items-center flex-wrap">
+                {product.title}
+              </div>
             </div>
           </>
         ))}
