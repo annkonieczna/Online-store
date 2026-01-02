@@ -28,8 +28,8 @@ export default function SearchBar() {
             {/* Displaying */}
             {filteredProducts.slice(0, 5).map((p: Product) => (
               <Link
-                to={`/product/${p.id}`}
-                key={p.id}
+                to={`/product/${p._id}`}
+                key={p._id}
                 onClick={() => setOpen(false)}
                 className="flex gap-4 p-3 hover:bg-gray-100"
               >

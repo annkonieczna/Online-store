@@ -3,6 +3,7 @@ import Filters from "../components/Filters";
 import { useProducts } from "../context/ProductsContext";
 import type { Product } from "../context/ProductsContext";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 export default function SearchPage() {
   const { filteredProducts } = useProducts();
@@ -17,11 +18,8 @@ export default function SearchPage() {
 
       <div className="flex flex-row flex-wrap gap-6 mt-8">
         {filteredProducts.map((product: Product) => (
-          <>
-            <div
-              key={product.id}
-              className="border p-3 rounded flex flex-col w-50 h-50 "
-            >
+          <Link key={product._id} to={`/product/${product._id}`}>
+            <div className="border p-3 rounded flex flex-col w-50 h-50 ">
               <div className="flex items-center justify-center mt-2.5">
                 <img src={product.image} className=" h-35 "></img>
               </div>
@@ -29,7 +27,7 @@ export default function SearchPage() {
                 {product.title}
               </div>
             </div>
-          </>
+          </Link>
         ))}
       </div>
     </div>

@@ -18,11 +18,9 @@ interface Product {
   image: string;
   title: string;
   size: string[];
-  category: string,
-  stock: number,
-  rating: number,
-
-
+  category: string;
+  stock: number;
+  rating: number;
 }
 const initialOpinion = {
   id: Date.now(),
@@ -49,7 +47,7 @@ const Product = () => {
     size: [],
     stock: 0,
     rating: 0,
-    category: ""
+    category: "",
   });
   useEffect(() => {
     fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
@@ -159,7 +157,7 @@ const Product = () => {
               There are no opinions about the product yet
             </div>
             <div hidden={!visibilityOp}>
-              {opinions.map((opinion, id) => {
+              {opinions.map((opinion, _id) => {
                 return (
                   <div
                     style={{

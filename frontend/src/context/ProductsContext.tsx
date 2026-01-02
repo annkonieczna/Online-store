@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 export type Product = {
-  id: number;
+  _id: number;
   title: string;
   price: number;
   category: string;
