@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Quantity from "../components/quantity";
+import { useParams } from "react-router-dom";
 
 interface Opinion {
   id: number;
@@ -14,6 +15,12 @@ interface Product {
   price: number;
   name: string;
   description: string;
+  image: string;
+  title: string;
+  size: string[];
+  category: string;
+  stock: number;
+  rating: number;
 }
 const initialOpinion = {
   id: Date.now(),
@@ -22,46 +29,33 @@ const initialOpinion = {
   description: "",
 };
 
-const Product = ({ id }: { id: number }) => {
-  const [products, setProducts] = useState<Product[]>([]);
+const Product = () => {
   const [selected, setSel] = useState(-1);
   const [visibilityOp, setVisib] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [newOp, setnewOp] = useState<Opinion>(initialOpinion);
+  const { id } = useParams();
 
   const [opinions, setOpinions] = useState<Opinion[]>([]);
-
-  const [product, setProduct] = useState({
-    _id: 1,
-    title: "Long sleeve Jacket",
-    isNew: true,
-    oldPrice: "200",
-    price: 150,
-    discountedPrice: 135,
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.",
-    category: "women",
-    type: "jacket",
-    stock: 50,
-    brand: "FashionTrend",
-    size: ["S", "M", "L"],
-    image: "https://images.pexels.com/photos/2584269/pexels-photo-2584269.jpeg",
-    rating: 4,
+  const [product, setProduct] = useState<Product>({
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    title: "",
+    image: "",
+    size: [],
+    stock: 0,
+    rating: 0,
+    category: "",
   });
-
   useEffect(() => {
-    fetch("https://fakestoreapiserver.reactbd.org/api/products")
+    fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
-        opinions.push({
-          id: 0,
-          name: "kasia",
-          description: "superjcns v j j",
-          rating: 2,
-        });
+        setProduct(data);
       });
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -70,6 +64,7 @@ const Product = ({ id }: { id: number }) => {
           <Navbar />
         </div>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -162,7 +157,7 @@ const Product = ({ id }: { id: number }) => {
               There are no opinions about the product yet
             </div>
             <div hidden={!visibilityOp}>
-              {opinions.map((opinion, id) => {
+              {opinions.map((opinion, _id) => {
                 return (
                   <div
                     style={{
