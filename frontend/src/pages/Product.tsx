@@ -87,7 +87,7 @@ const Product = () => {
             {product.title}
           </p>
           <p style={{ fontSize: "140%", fontWeight: "inherit" }}>
-            {product.price},00 $
+            {String(product.price).includes(".") ? product.price: product.price + ".00" } $
           </p>
           <div style={{ display: "flex", flexDirection: "row" }}>
             {product.size.map((size, id) => {
