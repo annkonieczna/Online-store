@@ -118,6 +118,19 @@ main {
   color: white;
   cursor: pointer;
 }
+.accept-bt_nonactive {
+  background-color: rgb(115, 111, 111);
+  color: white;
+  height: 5vh;
+  width: 20%;
+  border-radius: 2vh;
+  margin: 5%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+}
 .link {
   text-decoration: underline;
 }
@@ -129,4 +142,30 @@ main {
 .comments {
   color: grey;
   font-size: smaller;
+}
+.box {
+  width: 20vw;
+  height: 20vw;
+  background-color: rgb(86, 82, 82);
+  color: white;
+  border-radius: 15px;
+  text-align: center;
+  align-content: center;
+  padding: 2%;
+  opacity: 100%;
+  transition: transform 0.5s ease;
+  font-size: larger;
+  font-weight: bold;
+}
+.box:hover {
+  transform: scale(1.1);
+  border-radius: 15px;
+  padding: 2%;
+  font-weight: inherit;
+
+  text-align: center;
+  align-content: center;
+  background-color: rgb(255, 255, 255);
+  color: rgb(86, 82, 82);
+  border: 1px solid rgb(86, 82, 82);
 }
