@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Quantity from "../components/quantity";
-import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom";
 
 interface Opinion {
@@ -36,8 +35,6 @@ const Product = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [newOp, setnewOp] = useState<Opinion>(initialOpinion);
   const { id } = useParams();
-  const [sizeError, setSizeErr] = useState(false);
-  const [LoginError, setLoginError] = useState(false);
 
   const [opinions, setOpinions] = useState<Opinion[]>([]);
   const [product, setProduct] = useState<Product>({
@@ -52,9 +49,6 @@ const Product = () => {
     rating: 0,
     category: "",
   });
-
-  const [userData, setUserData] = useState(null);
-
   useEffect(() => {
     fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
       .then((res) => res.json())
@@ -62,17 +56,7 @@ const Product = () => {
         setProduct(data);
       });
   }, [id]);
-  useEffect(() => {
-    getData();
-  }, []);
 
-  const getData = async () => {
-    const raw = sessionStorage.getItem("userInfo");
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (data && data.loggedIn) setUserData(data.userData);
-    }
-  };
   return (
     <div>
       <div>
@@ -110,8 +94,8 @@ const Product = () => {
               return (
                 <button
                   style={{
-                    width: "10%",
-                    height: "100%",
+                    width: "5vh",
+                    height: "5vh",
                     margin: "0.5vw",
                     marginTop: "3vh",
                     borderRadius: "10%",
@@ -121,52 +105,23 @@ const Product = () => {
                     backgroundColor: `${selected !== id ? "white" : "black"}`,
                     color: `${selected !== id ? " black" : "white"}`,
                   }}
-                  onClick={() => {
-                    setSel(id);
-                    setSizeErr(false);
-                  }}
+                  onClick={() => setSel(id)}
                 >
                   {size}
                 </button>
               );
             })}
           </div>
-          <div
-            className="error"
-            style={{
-              fontSize: "70%",
-            }}
-            hidden={!sizeError}
-          >
-            Choose size firstly
-          </div>
           <Quantity max={product.stock}></Quantity>
           <p className="comments">In stock: {product.stock}</p>
           <button
-            className={
-              selected === -1 || !userData ? "accept-bt_nonactive" : "accept-bt"
-            }
+            className="accept-bt"
             style={{ width: "40vh", justifySelf: "center" }}
-            onClick={() => {
-              if (selected === -1) {
-                setSizeErr(true);
-              } else if (!userData) {
-                setLoginError(true);
-              }
-            }}
           >
             Add to Shopping Bag
           </button>
-          <div
-            className="error"
-            style={{
-              fontSize: "70%",
-            }}
-            hidden={!LoginError}
-          >
-            Sign in to add product to your cart
-          </div>
-          <p className="comments" style={{}}>
+
+          <p className="comments" style={{ marginTop: "10vh" }}>
             Category: {product.category}
           </p>
           <p
@@ -180,16 +135,9 @@ const Product = () => {
             <br /> {product.description}
           </p>
           <p
-            style={{
-              fontSize: "90%",
-              fontWeight: "inherit",
-              marginTop: "3vh",
-              display: "flex",
-              alignItems: "center",
-            }}
+            style={{ fontSize: "90%", fontWeight: "inherit", marginTop: "3vh" }}
           >
-            <b>Rating:</b>{" "}
-            <Rating name="read-only" value={product.rating} readOnly />
+            <b>Rating:</b> {product.rating}/5
           </p>
           <div>
             <button
@@ -231,11 +179,7 @@ const Product = () => {
                     >
                       <b>{opinion.name}</b>
                       <p>
-                        <Rating
-                          name="read-only"
-                          value={opinion.rating}
-                          readOnly
-                        />
+                        <b>Rate: </b> {opinion.rating}/5
                       </p>
                     </p>
                     <hr />
@@ -248,24 +192,11 @@ const Product = () => {
               })}
             </div>
             <div
-              hidden={!visibilityOp || isOpen || userData === null}
-              style={{
-                textDecoration: "underline",
-                cursor: "pointer",
-                marginTop: "5%",
-              }}
+              hidden={!visibilityOp || isOpen}
+              style={{ textDecoration: "underline", cursor: "pointer" }}
               onClick={() => setIsOpen(true)}
             >
               Add an opinion
-            </div>
-            <div
-              className="comments"
-              hidden={userData !== null || !visibilityOp}
-              style={{
-                marginTop: "5%",
-              }}
-            >
-              Sign in to add an opinion
             </div>
             <div hidden={!isOpen || !visibilityOp}>
               <div
@@ -301,13 +232,21 @@ const Product = () => {
                     }
                   />
                   <p>
-                    <Rating
-                      name="simple-controlled"
+                    <b>Rate: </b>
+                    <select
+                      name="rating"
+                      id=""
                       value={newOp.rating}
-                      onChange={(event, newValue) => {
-                        setnewOp({ ...newOp, rating: newValue ?? 0 });
-                      }}
-                    />
+                      onChange={(e) =>
+                        setnewOp({ ...newOp, rating: Number(e.target.value) })
+                      }
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
                   </p>
                 </p>
                 <hr />
