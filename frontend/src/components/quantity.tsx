@@ -11,16 +11,6 @@ const Quantity = ({ max }: { max: number }) => {
       }}
     >
       <button
-        style={{ width: "2vw", height: "2vw" }}
-        className="accept-bt"
-        onClick={() => {
-          if (quantity < max) setQuan((prev) => prev + 1);
-        }}
-      >
-        +
-      </button>
-      <p style={{ width: "1.5vw", textAlign: "center" }}>{quantity}</p>
-      <button
         style={{ width: "2vw", height: "2vw", position: "sticky" }}
         className="accept-bt"
         onClick={() => {
@@ -28,6 +18,16 @@ const Quantity = ({ max }: { max: number }) => {
         }}
       >
         -
+      </button>
+      <p style={{ width: "1.5vw", textAlign: "center" }}>{quantity}</p>
+      <button
+        style={{ width: "2vw", height: "2vw" }}
+        className="accept-bt"
+        onClick={() => {
+          if (quantity < max) setQuan((prev) => prev + 1);
+        }}
+      >
+        +
       </button>
     </div>
   );
