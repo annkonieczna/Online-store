@@ -4,6 +4,7 @@ import authRoutes from "./src/routes/authRoutes.js";
 import { checkConnection } from "./src/config/db.js";
 import createAllTables from "./src/utils/dbUtils.js";
 import cors from "cors";
+import initProductsUtils from "./src/utils/initProductsUtils.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.listen(3000, async () => {
   try {
     await checkConnection();
     await createAllTables();
+    await initProductsUtils();
   } catch (error) {
     console.log("failed to initialize database", error);
   }

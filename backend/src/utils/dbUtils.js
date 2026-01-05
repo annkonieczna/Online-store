@@ -16,6 +16,22 @@ email VARCHAR(100)  UNIQUE,
  admin TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (id)
 );`;
+const productsTableQuery = `CREATE TABLE IF NOT EXISTS Products (
+        id INTEGER PRIMARY KEY,
+        title TEXT, 
+        description TEXT,
+        price REAL,
+        category TEXT,
+        image TEXT,
+        stock INTEGER,
+        rating REAL
+        )`;
+const ordersTableQuery = `CREATE TABLE IF NOT EXISTS Orders (
+    id INTEGER AUTO_INCREMENT,
+    userId INTEGER,
+    total REAL,
+    createdAt TEXT,
+    PRIMARY KEY (id))`;
 
 const createTable = async (tableName, query) => {
   try {
@@ -30,6 +46,8 @@ const createAllTables = async () => {
   try {
     await createTable("users", usersTableQuery);
     await createTable("opinions", opinionsTableQuery);
+    await createTable("products", productsTableQuery);
+    await createTable("orders", ordersTableQuery);
     console.log("all tables created");
   } catch (error) {
     console.log("error creating tables", error);
