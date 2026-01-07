@@ -5,8 +5,10 @@ import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Trash2, Pencil } from "lucide-react";
 
 interface Opinion {
+  id: number;
   rating: number;
   title: string;
   context: string;
@@ -25,6 +27,7 @@ interface Product {
   rating: number;
 }
 const initialOpinion = {
+  id: 0,
   title: "",
   rating: 5,
   context: "",
@@ -38,6 +41,9 @@ const Product = () => {
   const { id } = useParams();
   const [sizeError, setSizeErr] = useState(false);
   const [LoginError, setLoginError] = useState(false);
+  const [editingOpinionId, setEditingOpinionId] = useState<number | null>(null);
+  const [editingOpinionData, setEditingOpinionData] =
+    useState<Opinion>(initialOpinion);
 
   const [opinions, setOpinions] = useState<Opinion[]>([]);
   const [product, setProduct] = useState<Product>({
@@ -56,7 +62,6 @@ const Product = () => {
   const [userData, setUserData] = useState({ id: 0, email: "" });
 
   useEffect(() => {
-    console.log("ID FROM URL:", id);
     fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -68,9 +73,55 @@ const Product = () => {
     getData();
   }, []);
 
+  const handleEditOpinion = async (opinion: Opinion) => {
+    try {
+      const response = await axios.patch(
+        "http://localhost:3000/users/editOpinion",
+        {
+          title: opinion.title || "Anonim",
+          context: opinion.context || "No description",
+          rating: opinion.rating,
+          id: opinion.id,
+        }
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        toast.success(
+          response.data.message || "Edited an opinion successfully!"
+        );
+        fetchOpinions();
+      } else toast.error(response.data.message || "Failed to edit an opinion");
+    } catch (error: any) {
+      console.error("Error during editing an opinion:", error);
+      toast.error(
+        error.response.data.error.message ||
+          error.response.data.message ||
+          "Something went wrong. Please try again later."
+      );
+    }
+  };
+
+  const handleDeleteOpinion = async (opinionid: any) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/users/deleteOpinion/${opinionid}`
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        fetchOpinions();
+      } else
+        toast.error(response.data.message || "Failed to delete an opinion");
+    } catch (error: any) {
+      console.error("Error during deleting an opinion:", error);
+      toast.error(
+        error.response.data.error.message ||
+          error.response.data.message ||
+          "Something went wrong. Please try again later."
+      );
+    }
+  };
+
   const handleAddOpinion = async (opinion: Opinion) => {
-    // e.preventDefault();
-    console.log("chce dodac opinie:", opinion);
     try {
       const response = await axios.post(
         "http://localhost:3000/users/addOpinion",
@@ -268,38 +319,175 @@ const Product = () => {
             <div hidden={!visibilityOp}>
               {opinions.map((opinion, _id) => {
                 return (
-                  <div
-                    style={{
-                      border: "1px solid black",
-                      borderRadius: "1vh",
-                      width: "100%",
-                      minHeight: "10vh",
-                      margin: "2vh",
-                      padding: "2%",
-                    }}
-                  >
-                    <p
+                  <div>
+                    <div
+                      hidden={editingOpinionId === opinion.id}
                       style={{
-                        fontSize: "105%",
-                        justifyContent: "space-between",
-                        display: "flex",
-                        flexDirection: "row",
+                        border: "1px solid black",
+                        borderRadius: "1vh",
+                        width: "100%",
+                        minHeight: "10vh",
+                        margin: "2vh",
+                        padding: "2%",
                       }}
                     >
-                      <b>{opinion.title}</b>
-                      <p>
-                        <Rating
-                          name="read-only"
-                          value={opinion.rating}
-                          readOnly
-                        />
+                      <p
+                        style={{
+                          fontSize: "105%",
+                          justifyContent: "space-between",
+                          display: "flex",
+                          flexDirection: "row",
+                        }}
+                      >
+                        <b>{opinion.title}</b>
+                        <p>
+                          <Rating
+                            name="read-only"
+                            value={opinion.rating}
+                            readOnly
+                          />
+                        </p>
+                        <div
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            handleDeleteOpinion(opinion.id);
+                          }}
+                        >
+                          <Trash2 />
+                        </div>
+                        <div
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            setEditingOpinionId(opinion.id);
+                            setEditingOpinionData(opinion);
+                          }}
+                        >
+                          <Pencil />
+                        </div>
                       </p>
-                    </p>
-                    <hr />
-                    <br />
-                    <text style={{ whiteSpace: "pre-wrap" }}>
-                      {opinion.context}
-                    </text>
+                      <hr />
+                      <br />
+                      <text style={{ whiteSpace: "pre-wrap" }}>
+                        {opinion.context}
+                      </text>
+                    </div>
+                    <div hidden={editingOpinionId !== opinion.id}>
+                      <div
+                        style={{
+                          border: "1px solid black",
+                          borderRadius: "1vh",
+                          width: "100%",
+                          minHeight: "10vh",
+                          margin: "2vh",
+                          padding: "2%",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: "100%",
+                            justifyContent: "space-between",
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <input
+                            value={editingOpinionData.title}
+                            style={{
+                              paddingLeft: "1%",
+                              paddingRight: "1%",
+                              paddingTop: "0.5%",
+                              paddingBottom: "0.5%",
+                            }}
+                            type="text"
+                            onChange={(e) =>
+                              setEditingOpinionData({
+                                ...editingOpinionData,
+                                title: e.target.value,
+                              })
+                            }
+                          />
+                          <p>
+                            <Rating
+                              name="simple-controlled"
+                              value={editingOpinionData.rating}
+                              onChange={(event, newValue) => {
+                                setEditingOpinionData({
+                                  ...editingOpinionData,
+                                  rating: newValue ?? 0,
+                                });
+                              }}
+                            />
+                          </p>
+                        </p>
+                        <hr />
+                        <br />
+                        <textarea
+                          value={editingOpinionData.context}
+                          style={{
+                            width: "100%",
+                            paddingLeft: "1%",
+                            paddingRight: "1%",
+                            paddingTop: "0.5%",
+                            paddingBottom: "0.5%",
+                          }}
+                          onChange={(e) =>
+                            setEditingOpinionData({
+                              ...editingOpinionData,
+                              context: e.target.value,
+                            })
+                          }
+                          rows={3}
+                        />
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <button
+                            style={{
+                              width: "40%",
+                              marginRight: "0",
+                              marginBottom: "0",
+                            }}
+                            className="accept-bt_reverse"
+                            onClick={() => {
+                              setEditingOpinionId(null);
+                              setEditingOpinionData(initialOpinion);
+                            }}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            style={{
+                              width: "40%",
+                              marginRight: "0",
+                              marginBottom: "0",
+                            }}
+                            className="accept-bt"
+                            onClick={() => {
+                              const finalOpinion = {
+                                id: opinion.id,
+                                rating: editingOpinionData.rating,
+                                title:
+                                  editingOpinionData.title.trim() === ""
+                                    ? "Anonim"
+                                    : editingOpinionData.title,
+                                context:
+                                  editingOpinionData.context.trim() === ""
+                                    ? "No description"
+                                    : editingOpinionData.context,
+                              };
+                              handleEditOpinion(finalOpinion);
+                              setEditingOpinionId(null);
+                              setEditingOpinionData(initialOpinion);
+                            }}
+                          >
+                            Edit opinion
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
