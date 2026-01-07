@@ -3,12 +3,13 @@ import Navbar from "../components/Navbar";
 import Quantity from "../components/quantity";
 import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 interface Opinion {
-  id: number;
   rating: number;
-  name: string;
-  description: string;
+  title: string;
+  context: string;
 }
 
 interface Product {
@@ -24,10 +25,9 @@ interface Product {
   rating: number;
 }
 const initialOpinion = {
-  id: Date.now(),
-  name: "",
+  title: "",
   rating: 5,
-  description: "",
+  context: "",
 };
 
 const Product = () => {
@@ -53,18 +53,72 @@ const Product = () => {
     category: "",
   });
 
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({ id: 0, email: "" });
 
   useEffect(() => {
+    console.log("ID FROM URL:", id);
     fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
       });
+    fetchOpinions();
   }, [id]);
   useEffect(() => {
     getData();
   }, []);
+
+  const handleAddOpinion = async (opinion: Opinion) => {
+    // e.preventDefault();
+    console.log("chce dodac opinie:", opinion);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/users/addOpinion",
+        {
+          title: opinion.title || "Anonim",
+          context: opinion.context || "No description",
+          rating: opinion.rating,
+          user_id: userData.id,
+          product_id: id,
+        }
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        toast.success(
+          response.data.message || "Added an opinion successfully!"
+        );
+        fetchOpinions();
+
+        setnewOp(initialOpinion);
+        setIsOpen(false);
+      } else toast.error(response.data.message || "Failed to add an opinion");
+    } catch (error: any) {
+      console.error("Error during adding an opinion:", error);
+      toast.error(
+        error.response.data.error.message ||
+          error.response.data.message ||
+          "Something went wrong. Please try again later."
+      );
+    }
+  };
+
+  const fetchOpinions = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/users/getAllOpinions/${id}`
+      );
+      console.log(response);
+      if (response.data.success) {
+        console.log(response.data);
+        setOpinions(response.data.data);
+      } else console.log(response.data.message || "failed to load data");
+    } catch (error: any) {
+      console.error("Error during fetching data:", error);
+      console.error("AXIOS ERROR DATA:", error.response?.data);
+
+      console.log(error.response?.data?.message || "error occurred");
+    }
+  };
 
   const getData = async () => {
     const raw = sessionStorage.getItem("userInfo");
@@ -103,7 +157,10 @@ const Product = () => {
             {product.title}
           </p>
           <p style={{ fontSize: "140%", fontWeight: "inherit" }}>
-            {String(product.price).includes(".") ? product.price: product.price + ".00" } $
+            {String(product.price).includes(".")
+              ? product.price
+              : product.price + ".00"}{" "}
+            $
           </p>
           <div style={{ display: "flex", flexDirection: "row" }}>
             {product.size.map((size, id) => {
@@ -229,7 +286,7 @@ const Product = () => {
                         flexDirection: "row",
                       }}
                     >
-                      <b>{opinion.name}</b>
+                      <b>{opinion.title}</b>
                       <p>
                         <Rating
                           name="read-only"
@@ -241,7 +298,7 @@ const Product = () => {
                     <hr />
                     <br />
                     <text style={{ whiteSpace: "pre-wrap" }}>
-                      {opinion.description}
+                      {opinion.context}
                     </text>
                   </div>
                 );
@@ -287,7 +344,7 @@ const Product = () => {
                   }}
                 >
                   <input
-                    value={newOp.name}
+                    value={newOp.title}
                     style={{
                       paddingLeft: "1%",
                       paddingRight: "1%",
@@ -297,7 +354,7 @@ const Product = () => {
                     type="text"
                     placeholder="Your name"
                     onChange={(e) =>
-                      setnewOp({ ...newOp, name: e.target.value })
+                      setnewOp({ ...newOp, title: e.target.value })
                     }
                   />
                   <p>
@@ -314,7 +371,7 @@ const Product = () => {
                 <br />
                 <textarea
                   placeholder="Opinion"
-                  value={newOp.description}
+                  value={newOp.context}
                   style={{
                     width: "100%",
                     paddingLeft: "1%",
@@ -323,7 +380,7 @@ const Product = () => {
                     paddingBottom: "0.5%",
                   }}
                   onChange={(e) =>
-                    setnewOp({ ...newOp, description: e.target.value })
+                    setnewOp({ ...newOp, context: e.target.value })
                   }
                   rows={3}
                 />
@@ -354,17 +411,14 @@ const Product = () => {
                     onClick={() => {
                       const finalOpinion = {
                         ...newOp,
-                        name: newOp.name.trim() === "" ? "Anonim" : newOp.name,
-                        description:
-                          newOp.description.trim() === ""
+                        title:
+                          newOp.title.trim() === "" ? "Anonim" : newOp.title,
+                        context:
+                          newOp.context.trim() === ""
                             ? "No description"
-                            : newOp.description,
-                        id: Date.now(),
+                            : newOp.context,
                       };
-
-                      setOpinions((prev) => [...prev, finalOpinion]);
-                      setnewOp(initialOpinion);
-                      setIsOpen(false);
+                      handleAddOpinion(finalOpinion);
                     }}
                   >
                     Add opinion
