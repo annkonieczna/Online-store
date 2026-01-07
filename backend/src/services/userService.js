@@ -38,3 +38,38 @@ export const getOpinionByProductId = async (product_id) => {
     return { success: false, error: error };
   }
 };
+
+export const deleteOpinionById = async (opinion_id) => {
+  try {
+    const [result] = await pool.query(`DELETE FROM opinions WHERE id = ?`, [
+      opinion_id,
+    ]);
+    console.log("usuwam w bazie");
+
+    if (result.affectedRows === 0) {
+      return { success: false, message: "No opinion found with this id" };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error };
+  }
+};
+
+export const editOpinionById = async (opinion) => {
+  try {
+    console.log("edytuje w bazie");
+    const [result] = await pool.query(
+      "UPDATE opinions SET context = ?, rating = ?, title=? WHERE id = ?",
+      [opinion.context, opinion.rating, opinion.title, opinion.id]
+    );
+
+    if (result.affectedRows === 0) {
+      return { success: false, message: "No opinion found with this id" };
+    }
+
+    return { success: true, message: "Opinion edited" };
+  } catch (error) {
+    return { success: false, error: error };
+  }
+};
