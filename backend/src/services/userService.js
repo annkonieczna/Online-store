@@ -73,3 +73,16 @@ export const editOpinionById = async (opinion) => {
     return { success: false, error: error };
   }
 };
+
+export const getOpinions = async (productId, userId) => {
+  try {
+    const [opinions] = await pool.query(
+      `SELECT * FROM opinions WHERE product_id=? and user_id=?`,
+      [productId, userId] // CAST(? AS UNSIGNED)`,
+    );
+
+    return { success: true, data: opinions };
+  } catch (error) {
+    return { success: false, error: error };
+  }
+};

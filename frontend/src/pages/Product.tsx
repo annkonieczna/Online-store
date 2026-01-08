@@ -46,6 +46,7 @@ const Product = () => {
     useState<Opinion>(initialOpinion);
 
   const [opinions, setOpinions] = useState<Opinion[]>([]);
+  const [opinionsToEdit, setOpinionsToEdit] = useState<Opinion[]>([]);
   const [product, setProduct] = useState<Product>({
     id: 0,
     name: "",
@@ -59,8 +60,16 @@ const Product = () => {
     category: "",
   });
 
-  const [userData, setUserData] = useState({ id: 0, email: "" });
+  const [userData, setUserData] = useState({ id: 0, email: "", admin: 0 });
 
+  useEffect(() => {
+    getData();
+  }, []);
+  useEffect(() => {
+    if (userData.id !== 0 && id) {
+      fetchOpinionsToEdit();
+    }
+  }, [userData, id, opinions]);
   useEffect(() => {
     fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
       .then((res) => res.json())
@@ -69,9 +78,6 @@ const Product = () => {
       });
     fetchOpinions();
   }, [id]);
-  useEffect(() => {
-    getData();
-  }, []);
 
   const handleEditOpinion = async (opinion: Opinion) => {
     try {
@@ -162,6 +168,23 @@ const Product = () => {
       if (response.data.success) {
         console.log(response.data);
         setOpinions(response.data.data);
+      } else console.log(response.data.message || "failed to load data");
+    } catch (error: any) {
+      console.error("Error during fetching data:", error);
+      console.error("AXIOS ERROR DATA:", error.response?.data);
+
+      console.log(error.response?.data?.message || "error occurred");
+    }
+  };
+  const fetchOpinionsToEdit = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/users/getUsersOpinions?productId=${id}&userId=${userData.id}`
+      );
+      console.log("opinions to edit", response);
+      if (response.data.success) {
+        console.log(response.data);
+        setOpinionsToEdit(response.data.data);
       } else console.log(response.data.message || "failed to load data");
     } catch (error: any) {
       console.error("Error during fetching data:", error);
@@ -340,29 +363,48 @@ const Product = () => {
                         }}
                       >
                         <b>{opinion.title}</b>
-                        <p>
-                          <Rating
-                            name="read-only"
-                            value={opinion.rating}
-                            readOnly
-                          />
-                        </p>
                         <div
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            handleDeleteOpinion(opinion.id);
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: "row",
                           }}
                         >
-                          <Trash2 />
-                        </div>
-                        <div
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            setEditingOpinionId(opinion.id);
-                            setEditingOpinionData(opinion);
-                          }}
-                        >
-                          <Pencil />
+                          <p>
+                            <Rating
+                              name="read-only"
+                              value={opinion.rating}
+                              readOnly
+                            />
+                          </p>
+
+                          <div
+                            hidden={
+                              !(
+                                opinionsToEdit.some(
+                                  (op) => op.id === opinion.id
+                                ) || userData.admin === 1
+                              )
+                            }
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              handleDeleteOpinion(opinion.id);
+                            }}
+                          >
+                            <Trash2 />
+                          </div>
+                          <div
+                            hidden={
+                              !opinionsToEdit.some((op) => op.id === opinion.id)
+                            }
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setEditingOpinionId(opinion.id);
+                              setEditingOpinionData(opinion);
+                            }}
+                          >
+                            <Pencil />
+                          </div>
                         </div>
                       </p>
                       <hr />
@@ -493,7 +535,13 @@ const Product = () => {
               })}
             </div>
             <div
-              hidden={!visibilityOp || isOpen || userData === null}
+              hidden={
+                !visibilityOp ||
+                isOpen ||
+                userData === null ||
+                opinionsToEdit.length > 0 ||
+                userData.admin === 1
+              }
               style={{
                 textDecoration: "underline",
                 cursor: "pointer",

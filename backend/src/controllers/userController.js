@@ -4,6 +4,7 @@ import {
   getOpinionByProductId,
   deleteOpinionById,
   editOpinionById,
+  getOpinions,
 } from "../services/userService.js";
 
 export const addOpinion = async (req, res) => {
@@ -34,6 +35,22 @@ export const getAllOpinions = async (req, res) => {
 
   try {
     const response = await getOpinionByProductId(productId);
+    if (response.success) return res.status(201).json(response);
+    else return res.status(400).json(response);
+  } catch (error) {
+    //return { success: false, message: "Registration failed" };
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to load data" });
+  }
+};
+
+export const getUsersOpinions = async (req, res) => {
+  const { productId, userId } = req.query;
+  // const { product_id } = req.params;
+
+  try {
+    const response = await getOpinions(productId, userId);
     if (response.success) return res.status(201).json(response);
     else return res.status(400).json(response);
   } catch (error) {
