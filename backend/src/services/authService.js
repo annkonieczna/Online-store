@@ -43,9 +43,10 @@ export const getUserFromToken = async (token) => {
     const trimmedToken = token.trim();
     const decodedToken = await jwt.verify(trimmedToken, JWT_SECRET);
     const [rows] = await pool.query(
-      `SELECT id, email FROM users WHERE email=?`,
+      `SELECT id, email, admin, password FROM users WHERE email=?`,
       [decodedToken.email]
     );
+
     if (rows.length === 0) return { success: false, message: "User not found" };
     return { success: true, data: rows[0] };
   } catch (error) {
