@@ -16,7 +16,7 @@ email VARCHAR(100)  UNIQUE,
  admin TINYINT(1) NOT NULL DEFAULT 0,
    PRIMARY KEY (id)
 );`;
-const productsTableQuery = `CREATE TABLE IF NOT EXISTS Products (
+const productsTableQuery = `CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY,
         title TEXT, 
         description TEXT,
@@ -26,7 +26,7 @@ const productsTableQuery = `CREATE TABLE IF NOT EXISTS Products (
         stock INTEGER,
         rating REAL
         )`;
-const ordersTableQuery = `CREATE TABLE IF NOT EXISTS Orders (
+const ordersTableQuery = `CREATE TABLE IF NOT EXISTS orders (
     id INTEGER AUTO_INCREMENT,
     userId INTEGER,
     total REAL,
