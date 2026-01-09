@@ -353,12 +353,16 @@ const Product = () => {
           <p className="comments">In stock: {product.stock}</p>
           <button
             className={
-              selected === -1 || !userData ? "accept-bt_nonactive" : "accept-bt"
+              selected === -1 || !userData || product.stock === 0
+                ? "accept-bt_nonactive"
+                : "accept-bt"
             }
             style={{ width: "40vh", justifySelf: "center" }}
             onClick={() => {
               if (selected === -1) {
                 setSizeErr(true);
+                return;
+              } else if (product.stock === 0) {
                 return;
               } else if (!userData) {
                 setLoginError(true);
@@ -368,7 +372,7 @@ const Product = () => {
               // handleEditProduct(product.rating, product.stock - 1);
             }}
           >
-            Add to Shopping Bag
+            {product.stock !== 0 ? "Add to Shopping Bag" : "Out of Stock"}
           </button>
           <div
             className="error"

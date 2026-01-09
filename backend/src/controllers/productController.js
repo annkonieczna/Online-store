@@ -33,10 +33,10 @@ export const getProduct = async (req, res) => {
 };
 
 export const editProduct = async (req, res) => {
-  const { rating, stock, id } = req.body;
+  const { id, stock } = req.body;
 
   try {
-    const response = await editProductById(id, rating, stock);
+    const response = await editProductById(id, stock);
     if (response.success) return res.status(201).json(response);
     else return res.status(400).json(response);
   } catch (error) {
