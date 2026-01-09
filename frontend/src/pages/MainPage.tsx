@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Photo from "../components/Photo";
 
@@ -31,12 +32,12 @@ function App() {
           </div>
 
           <div className="flex flex-row flex-wrap justify-around">
-            <Photo image="/man.jpg" text="Men" />
-            <Photo image="/female.jpg" text="Women" />
-            <Photo
+            <Link to={"/search?category=men"} ><Photo image="/man.jpg" text="Men" /></Link>
+            <Link to={"/search?category=women"}><Photo image="/female.jpg" text="Women" /></Link>
+            <Link to={"/search?category=kids"}><Photo
               image="https://plus.unsplash.com/premium_photo-1697183202112-19523c5e7250?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               text="Kids"
-            />
+            /></Link>
           </div>
         </div>
       </div>

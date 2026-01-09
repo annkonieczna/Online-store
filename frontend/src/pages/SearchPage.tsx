@@ -3,10 +3,18 @@ import Filters from "../components/Filters";
 import { useProducts } from "../context/ProductsContext";
 import type { Product } from "../context/ProductsContext";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function SearchPage() {
   const { filteredProducts } = useProducts();
+  const {filters,setFilters} = useProducts();
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category")
+  useEffect( () => {
+    setFilters( {...filters, category:category})
+
+  },[category])
 
   return (
     <div className="p-10">
