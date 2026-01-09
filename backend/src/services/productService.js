@@ -27,11 +27,11 @@ export const getProducts = async () => {
   }
 };
 
-export const editProductById = async (id, rating, stock) => {
+export const editProductById = async (id, stock) => {
   try {
     const [result] = await pool.query(
-      "UPDATE products SET stock = ?, rating = ? WHERE id = ?",
-      [stock, rating, id]
+      "UPDATE products SET stock = ? WHERE id = ?",
+      [stock, id]
     );
 
     if (result.affectedRows === 0) {

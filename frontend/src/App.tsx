@@ -1,4 +1,6 @@
 import "./index.css";
+import "leaflet/dist/leaflet.css";
+
 import Mainpage from "./pages/MainPage.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cart from "./pages/Cart.tsx";
@@ -11,6 +13,7 @@ import SearchPage from "./pages/SearchPage.tsx";
 import { ProductsProvider } from "./context/ProductsContext.tsx";
 import MyProfile from "./pages/MyProfile.tsx";
 import History from "./pages/History.tsx";
+import ContactUs from "./pages/ContactUs.tsx";
 function App() {
   return (
     <>
@@ -25,6 +28,7 @@ function App() {
             <Route path="/MyProfile" element={<MyProfile />}></Route>
             <Route path="/History" element={<History />}></Route>
             <Route path="/product/:id" element={<Product />}></Route>
+            <Route path="/ContactUs" element={<ContactUs />}></Route>
           </Routes>
           <ToastContainer
             position="top-center"

@@ -11,6 +11,6 @@ router.get("/getAll", getAllProducts);
 // Singular product
 router.get("/:id", getProduct);
 
-router.patch("/editProduct", editProduct);
+router.patch("/editStockProduct", editProduct);
 
 export default router;

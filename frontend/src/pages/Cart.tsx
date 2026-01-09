@@ -151,7 +151,15 @@ export default function Cart() {
             </p>
           </div>
           {productsInCart.map((product) => (
-            <div className="product" key={product.productId + product.size}>
+            <div
+              className="product"
+              style={{
+                backgroundColor:
+                  product.stock === 0 ? "rgba(226, 226, 226, 1)" : "white",
+                //opacity: product.stock === 0 ? "20%" : "0%",
+              }}
+              key={product.productId + product.size}
+            >
               <div className="smallImage">
                 <img src={product.image} alt={product.title} />
               </div>
@@ -198,7 +206,9 @@ export default function Cart() {
                 </div>
 
                 <p className="product-total">
-                  Total: {(product.price * product.quantity).toFixed(2)} $
+                  {product.stock !== 0
+                    ? `Total: ${(product.price * product.quantity).toFixed(2)}$`
+                    : "Out of Stock"}
                 </p>
               </div>
             </div>
