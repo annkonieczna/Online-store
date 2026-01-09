@@ -22,7 +22,7 @@ export const ProductsProvider = ({ children }: any) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filters, setFilters] = useState<Filters>({
     search: "",
-    category: "all",
+    category: "",
     minPrice: 0,
     maxPrice: 10000,
   });
@@ -42,7 +42,7 @@ export const ProductsProvider = ({ children }: any) => {
   const filteredProducts = products.filter((p) => {
     return (
       p.title.toLowerCase().includes(filters.search.toLowerCase()) &&
-      (filters.category === "all" || p.category === filters.category) &&
+      (filters.category === "" || p.category === filters.category) &&
       p.price >= filters.minPrice &&
       p.price <= filters.maxPrice
     );

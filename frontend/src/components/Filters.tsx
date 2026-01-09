@@ -28,7 +28,7 @@ export default function Filters() {
                 }
                 className="border rounded-md p-2"
               >
-                <option value="all">All</option>
+                <option value="">All</option>
                 <option value="men">Men</option>
                 <option value="women">Women</option>
                 <option value="kids">Kids</option>
@@ -71,7 +71,7 @@ export default function Filters() {
               onClick={() =>
                 setFilters({
                   ...filters,
-                  category: "all",
+                  category: "",
                   minPrice: 0,
                   maxPrice: 10000,
                 })

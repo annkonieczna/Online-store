@@ -7,13 +7,15 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function SearchPage() {
-  const { filteredProducts } = useProducts();
-  const {filters,setFilters} = useProducts();
+  const {filteredProducts,setFilters} = useProducts();
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category")
   useEffect( () => {
-    setFilters( {...filters, category:category})
+    setFilters( (prev: any) => ({
+      ...prev, category:category ?? ""
+    })
 
+    )
   },[category])
 
   return (
