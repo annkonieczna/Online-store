@@ -46,7 +46,7 @@ export const login = async (req, res) => {
       .json({ message: "All fields are required", success: false });
   try {
     const response = await loginUser(email, password);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -62,7 +62,7 @@ export const getUser = async (req, res) => {
       .json({ success: false, message: "Token not provided" });
   try {
     const response = await getUserFromToken(token);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
