@@ -7,7 +7,7 @@ import {
 export const getAllProducts = async (req, res) => {
   try {
     const response = await getProducts();
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -22,7 +22,7 @@ export const getProduct = async (req, res) => {
   console.log("product ", productId);
   try {
     const response = await getProductById(productId);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -37,7 +37,7 @@ export const editProduct = async (req, res) => {
 
   try {
     const response = await editProductById(id, stock);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };

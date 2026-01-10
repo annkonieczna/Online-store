@@ -9,7 +9,7 @@ export const getProductsInCart = async (req, res) => {
 
   try {
     const response = await getUsersProducts(userId);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -47,7 +47,7 @@ export const removeProduct = async (req, res) => {
 
   try {
     const response = await removeProductFromCart(userId, productId, size);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -74,7 +74,7 @@ export const updateCartProductQuantity = async (req, res) => {
       return res.status(400).json(result);
     }
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Quantity updated",
     });

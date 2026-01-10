@@ -35,7 +35,7 @@ export const getAllOpinions = async (req, res) => {
 
   try {
     const response = await getOpinionByProductId(productId);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -51,7 +51,7 @@ export const getUsersOpinions = async (req, res) => {
 
   try {
     const response = await getOpinions(productId, userId);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -68,7 +68,7 @@ export const deleteOpinion = async (req, res) => {
 
   try {
     const response = await deleteOpinionById(opinionId);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
@@ -92,7 +92,7 @@ export const editOpinion = async (req, res) => {
 
   try {
     const response = await editOpinionById(newOpinion);
-    if (response.success) return res.status(201).json(response);
+    if (response.success) return res.status(200).json(response);
     else return res.status(400).json(response);
   } catch (error) {
     //return { success: false, message: "Registration failed" };
