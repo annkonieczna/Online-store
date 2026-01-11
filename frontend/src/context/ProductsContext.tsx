@@ -6,8 +6,7 @@ export type Product = {
   price: number;
   category: string;
   image: string;
-  rating: { rate: number };
-};
+  rating: number };
 
 type Filters = {
   search: string;
