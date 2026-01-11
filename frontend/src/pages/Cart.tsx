@@ -139,7 +139,7 @@ export default function Cart() {
 
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar Shouldhover= {false}></Navbar>
       <div className="cart-container">
         <div className="leftpart">
           <p>
