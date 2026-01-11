@@ -34,6 +34,25 @@ export default function Filters() {
                 <option value="kids">Kids</option>
               </select>
             </div>
+            {/* sort */}
+            <div className="flex flex-col">
+              <label className="text-sm font-semibold mb-1">
+                Sort by:
+              </label>
+              <select
+                value={filters.sort}
+                onChange={(e) =>
+                  setFilters({ ...filters, sort: e.target.value as any })
+                }
+                className="border rounded-md p-2"
+              >
+                <option value="">None</option>
+                <option value="price-asc">Price: From lowest</option>
+                <option value="price-desc">Price: From highest</option>
+                <option value="title-asc">Name: A → Z</option>
+                <option value="title-desc">Name: Z → A</option>
+              </select>
+            </div>
 
             {/* min price */}
             <div className="flex flex-col">
@@ -74,6 +93,7 @@ export default function Filters() {
                   category: "",
                   minPrice: 0,
                   maxPrice: 10000,
+                  sort: "",
                 })
               }
               className="px-4 py-2 border rounded-md hover:bg-black hover:text-white transition"
