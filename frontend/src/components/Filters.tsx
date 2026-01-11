@@ -1,88 +1,127 @@
-import { useState } from "react";
-import { useProducts } from "../context/ProductsContext";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { Funnel } from "lucide-react";
+import { useProducts } from "../context/ProductsContext";
+
+const MAX_PRICE = 1000;
 
 export default function Filters() {
   const { filters, setFilters } = useProducts();
-  const [open, setOpen] = useState(false);
 
   return (
-    <>
-      <div className="relative ml-auto">
-        <div
-          onClick={() => setOpen((prev) => !prev)}
-          className="flex cursor-pointer flex-row px-4 py-2 border rounded-md hover:bg-black hover:text-white transition"
-        >
-          <Funnel className="mr-1.25" /> Filter
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className="ml-auto gap-2 rounded-xl">
+          <Funnel className="h-4 w-4" />
+          Filters
+        </Button>
+      </PopoverTrigger>
+
+      <PopoverContent className="w-80 rounded-xl space-y-4 bg-white text-black shadow-xl border">
+        {/* Category */}
+        <div>
+          <p className="text-sm font-medium mb-2">Category</p>
+          <Select
+            value={filters.category || "all"}
+            onValueChange={(value) =>
+              setFilters({
+                ...filters,
+                category: value === "all" ? "" : value,
+              })
+            }
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="men">Men</SelectItem>
+              <SelectItem value="women">Women</SelectItem>
+              <SelectItem value="kids">Kids</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        {open && (
-          <div className="absolute top-full right-0 mt-2 flex gap-6 items-end p-4 border rounded-xl shadow-sm bg-white z-50">
-            {/* category */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-1">Category</label>
-              <select
-                value={filters.category}
-                onChange={(e) =>
-                  setFilters({ ...filters, category: e.target.value })
-                }
-                className="border rounded-md p-2"
-              >
-                <option value="all">All</option>
-                <option value="men">Men</option>
-                <option value="women">Women</option>
-                <option value="kids">Kids</option>
-              </select>
-            </div>
+        <Separator />
 
-            {/* min price */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-1">
-                Min price ($)
-              </label>
-              <input
-                type="number"
-                value={filters.minPrice}
-                min={0}
-                onChange={(e) =>
-                  setFilters({ ...filters, minPrice: Number(e.target.value) })
-                }
-                className="border rounded-md p-2 w-28"
-              />
-            </div>
+        {/* price slider */}
+        <div>
+          <p className="text-sm font-medium mb-2">
+            Price range: ${filters.minPrice} – ${filters.maxPrice}
+          </p>
 
-            {/* max price */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-1">
-                Max price ($)
-              </label>
-              <input
-                type="number"
-                value={filters.maxPrice}
-                min={0}
-                onChange={(e) =>
-                  setFilters({ ...filters, maxPrice: Number(e.target.value) })
-                }
-                className="border rounded-md p-2 w-28"
-              />
-            </div>
+          <Slider
+            min={0}
+            max={MAX_PRICE}
+            step={10}
+            value={[filters.minPrice, filters.maxPrice]}
+            onValueChange={([min, max]) =>
+              setFilters({
+                ...filters,
+                minPrice: min,
+                maxPrice: max,
+              })
+            }
+            className="mt-4"
+          />
+        </div>
 
-            <button
-              onClick={() =>
-                setFilters({
-                  ...filters,
-                  category: "all",
-                  minPrice: 0,
-                  maxPrice: 10000,
-                })
-              }
-              className="px-4 py-2 border rounded-md hover:bg-black hover:text-white transition"
-            >
-              Reset filters
-            </button>
-          </div>
-        )}
-      </div>
-    </>
+        <Separator />
+
+        {/* sort */}
+        <div>
+          <p className="text-sm font-medium mb-2">Sort</p>
+          <Select
+            value={filters.sort || "default"}
+            onValueChange={(value) =>
+              setFilters({
+                ...filters,
+                sort: value === "default" ? "" : (value as any),
+              })
+            }
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectItem value="default">Default</SelectItem>
+              <SelectItem value="price-asc">Price ↑</SelectItem>
+              <SelectItem value="price-desc">Price ↓</SelectItem>
+              <SelectItem value="title-asc">Name A–Z</SelectItem>
+              <SelectItem value="title-desc">Name Z–A</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <Button
+          variant="ghost"
+          className="w-full"
+          onClick={() =>
+            setFilters({
+              search: "",
+              category: "",
+              minPrice: 0,
+              maxPrice: MAX_PRICE,
+              sort: "",
+            })
+          }
+        >
+          Reset filters
+        </Button>
+      </PopoverContent>
+    </Popover>
   );
 }

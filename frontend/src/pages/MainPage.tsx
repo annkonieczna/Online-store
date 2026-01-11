@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Photo from "../components/Photo";
+import Footer from "../components/Footer";
 
 function App() {
   return (
     <>
       <div className="relative w-full h-screen">
         <div className="absolute top-0 left-0 w-full z-20">
-          <Navbar />
+          <Navbar Shouldhover={true} ></Navbar>
         </div>
 
         <video className="w-full h-155 object-cover" autoPlay muted loop>
@@ -15,7 +17,7 @@ function App() {
       </div>
 
       <div className="relative w-full min-h-screen mt-20 overflow-hidden">
-        {/* <video
+        <video
     className="absolute inset-0 w-full h-full object-cover"
     autoPlay
     muted
@@ -23,7 +25,7 @@ function App() {
     playsInline
   >
     <source src="/black.mp4" type="video/mp4" />
-  </video> */}
+  </video>
 
         <div className="relative z-10 ">
           <div className="text-[50px] flex justify-center mb-12">
@@ -31,15 +33,16 @@ function App() {
           </div>
 
           <div className="flex flex-row flex-wrap justify-around">
-            <Photo image="/man.jpg" text="Men" />
-            <Photo image="/female.jpg" text="Women" />
-            <Photo
+            <Link to={"/search?category=men"} ><Photo image="/man.jpg" text="Men" /></Link>
+            <Link to={"/search?category=women"}><Photo image="/female.jpg" text="Women" /></Link>
+            <Link to={"/search?category=kids"}><Photo
               image="https://plus.unsplash.com/premium_photo-1697183202112-19523c5e7250?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               text="Kids"
-            />
+            /></Link>
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
