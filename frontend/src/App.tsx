@@ -14,6 +14,7 @@ import { ProductsProvider } from "./context/ProductsContext.tsx";
 import MyProfile from "./pages/MyProfile.tsx";
 import History from "./pages/History.tsx";
 import ContactUs from "./pages/ContactUs.tsx";
+import { ProtectedRoute } from "./components/ProtectedRoute.tsx";
 function App() {
   return (
     <>
@@ -22,13 +23,15 @@ function App() {
           <Routes>
             <Route path="/" element={<Mainpage />} />
             <Route path="/search" element={<SearchPage />} />
-            <Route path="/cart" element={<Cart />}></Route>
             <Route path="/SignIn" element={<SignIn />}></Route>
             <Route path="/SignUp" element={<SignUp />}></Route>
-            <Route path="/MyProfile" element={<MyProfile />}></Route>
-            <Route path="/History" element={<History />}></Route>
             <Route path="/product/:id" element={<Product />}></Route>
             <Route path="/ContactUs" element={<ContactUs />}></Route>
+            <Route element={<ProtectedRoute/>}> 
+            <Route path="/cart" element={<Cart />}></Route>
+            <Route path="/MyProfile" element={<MyProfile />}></Route>
+            <Route path="/History" element={<History />}></Route>
+            </Route>
           </Routes>
           <ToastContainer
             position="top-center"
