@@ -26,18 +26,30 @@ export default function SearchPage() {
         <Filters />
       </div>
 
-      <div className="flex flex-row flex-wrap gap-6 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
         {filteredProducts.map((product: Product) => (
           <Link key={product._id} to={`/product/${product._id}`}>
-            <div className="border p-3 rounded flex flex-col w-50 h-50 ">
-              <div className="flex items-center justify-center mt-2.5">
-                <img src={product.image} className=" h-35 "></img>
-              </div>
-              <div className="flex justify-center items-center flex-wrap">
-                {product.title}
-              </div>
-            </div>
-          </Link>
+  <div className="group bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden">
+
+    <div className="bg-gray-100 h-60 flex items-center justify-center">
+      <img
+        src={product.image}
+        alt={product.title}
+        className="h-40 object-contain group-hover:scale-105 transition"
+      />
+    </div>
+
+    <div className="p-4">
+      <h3 className="text-sm font-medium line-clamp-2">
+        {product.title}
+      </h3>
+
+      <p className="mt-2 text-lg font-bold text-gray-900">
+        ${product.price}
+      </p>
+    </div>
+  </div>
+</Link>
         ))}
       </div>
     </div>
