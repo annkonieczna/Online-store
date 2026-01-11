@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Zrzucanie danych dla tabeli onlinestore.products: ~20 rows (około)
+-- Zrzucanie danych dla tabeli onlinestore.products: ~20 rows 
 INSERT INTO `products` (`id`, `title`, `description`, `price`, `category`, `image`, `stock`, `rating`) VALUES
 	(1, 'Long sleeve Jacket', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.', 150, 'women', 'https://images.pexels.com/photos/2584269/pexels-photo-2584269.jpeg', 50, 4),
 	(2, 'Jacket with wollen hat', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla non magni facili blanditiis molestias soluta eveniet illum accusantium eius mollitia eligendi, ex iste doloribus magnam.', 65, 'women', 'https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg', 30, 3),
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Zrzucanie danych dla tabeli onlinestore.users: ~7 rows (około)
+-- Zrzucanie danych dla tabeli onlinestore.users: ~7 rows 
 INSERT INTO `users` (`id`, `email`, `password`, `admin`) VALUES
 	(1, 'aaaaa@aa.com', '$2b$10$nP0Mm23bOhRzJIcaCqQvxurParBmWHisi6eZBulv5.15VuUpKrl3q', 0),
 	(3, 'aaaa@aa.com', '$2b$10$bR3nEFgt85bfpJSwPQEjvOwXpSZAJMWKo0sGYJp8MjRv2b08oPFaC', 0),
