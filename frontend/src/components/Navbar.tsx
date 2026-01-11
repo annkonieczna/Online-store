@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserRound, Menu, Search, ShoppingBasket } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-export default function Navbar({Shouldhover}:{Shouldhover:boolean}) {
+export default function Navbar({ Shouldhover }: { Shouldhover: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [userData, setUserData] = useState(null);
   const location = useLocation();
@@ -19,10 +19,12 @@ export default function Navbar({Shouldhover}:{Shouldhover:boolean}) {
   return (
     <>
       <nav
-        className={` ${ Shouldhover ?
-          hovered
-            ? "bg-white border-t  border-b border-black border-solid transition ease-in-out transform-[3s] "
-            : "bg-transparent" : ""
+        className={` ${
+          Shouldhover
+            ? hovered
+              ? "bg-white border-t  border-b border-black border-solid transition ease-in-out transform-[3s] "
+              : "bg-transparent"
+            : ""
         } flex flex-row justify-between mb-2.5`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -31,6 +33,7 @@ export default function Navbar({Shouldhover}:{Shouldhover:boolean}) {
           <button className="button cursor-pointer  flex flex-row ">
             <Menu /> Menu
           </button>
+
           <Link to="/search">
             <button className="button cursor-pointer flex flex-row">
               <Search /> Search
@@ -42,16 +45,18 @@ export default function Navbar({Shouldhover}:{Shouldhover:boolean}) {
         </Link>
         <div className="navbar-right flex flex-row mr-5 mt-5 gap-3.75">
           <Link to={!userData ? "/SignIn" : "/MyProfile"}>
-            <button>
-              <UserRound className="cursor-pointer" />
+            <button className=" flex flex-row cursor-pointer">
+              <UserRound/>
+              Profile
             </button>
           </Link>
           <Link to={userData ? "/cart" : "/SignIn"}>
             {" "}
-            <button>
+            <button className="mr-5">
               <ShoppingBasket className="cursor-pointer flex flex-row" />
             </button>
           </Link>
+          
         </div>
       </nav>
     </>
