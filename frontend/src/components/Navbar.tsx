@@ -41,9 +41,6 @@ export default function Navbar() {
           <div className="font-bold text-[40px]">ANONYMOUS</div>
         </Link>
         <div className="navbar-right flex flex-row mr-5 mt-5 gap-3.75">
-          <div>
-            <button className="cursor-pointer">Contact us </button>
-          </div>
           <Link to={!userData ? "/SignIn" : "/MyProfile"}>
             <button>
               <UserRound className="cursor-pointer" />
