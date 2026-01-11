@@ -1,6 +1,10 @@
-import { useState } from "react";
-const Quantity = ({ max }: { max: number }) => {
-  const [quantity, setQuan] = useState(1);
+interface QuantityProps {
+  max: number;
+  value: number;
+  onChange: (value: number) => void;
+}
+
+const Quantity = ({ max, value, onChange }: QuantityProps) => {
   return (
     <div
       style={{
@@ -11,20 +15,22 @@ const Quantity = ({ max }: { max: number }) => {
       }}
     >
       <button
-        style={{ width: "2vw", height: "2vw", position: "sticky" }}
+        style={{ width: "2vw", height: "2vw" }}
         className="accept-bt"
         onClick={() => {
-          if (quantity > 1) setQuan((prev) => prev - 1);
+          if (value > 1) onChange(value - 1);
         }}
       >
         -
       </button>
-      <p style={{ width: "1.5vw", textAlign: "center" }}>{quantity}</p>
+
+      <p style={{ width: "1.5vw", textAlign: "center" }}>{value}</p>
+
       <button
         style={{ width: "2vw", height: "2vw" }}
         className="accept-bt"
         onClick={() => {
-          if (quantity < max) setQuan((prev) => prev + 1);
+          if (value < max) onChange(value + 1);
         }}
       >
         +
@@ -32,4 +38,5 @@ const Quantity = ({ max }: { max: number }) => {
     </div>
   );
 };
+
 export default Quantity;

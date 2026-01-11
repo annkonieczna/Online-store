@@ -33,7 +33,7 @@ export default function () {
       });
       console.log(response);
       if (response.data.success) {
-        console.log(response.data);
+        console.log("user", response.data.data);
         setUserData(response.data.data);
         let userData = {
           loggedIn: true,

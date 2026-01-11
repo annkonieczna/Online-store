@@ -41,6 +41,8 @@ const Product = () => {
   const { id } = useParams();
   const [sizeError, setSizeErr] = useState(false);
   const [LoginError, setLoginError] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
   const [editingOpinionId, setEditingOpinionId] = useState<number | null>(null);
   const [editingOpinionData, setEditingOpinionData] =
     useState<Opinion>(initialOpinion);
@@ -70,13 +72,22 @@ const Product = () => {
       fetchOpinionsToEdit();
     }
   }, [userData, id, opinions]);
+  // useEffect(() => {
+  //   fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setProduct(data);
+  //     });
+  //   fetchOpinions();
+  // }, [id]);
   useEffect(() => {
+    fetchProductData();
+    fetchOpinions();
     fetch(`https://fakestoreapiserver.reactbd.org/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        setProduct(data);
+        setProduct((prev) => ({ ...prev, size: data.size }));
       });
-    fetchOpinions();
   }, [id]);
 
   const handleEditOpinion = async (opinion: Opinion) => {
@@ -104,6 +115,59 @@ const Product = () => {
           error.response.data.message ||
           "Something went wrong. Please try again later."
       );
+    }
+  };
+  const handleAddingProductToCart = async () => {
+    if (selected === -1) {
+      setSizeErr(true);
+      return;
+    }
+
+    if (!userData || userData.id === 0) {
+      setLoginError(true);
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/cart/addProduct",
+        {
+          user_id: userData.id,
+          product_id: Number(id),
+          size: product.size[selected],
+          quantity: quantity,
+        }
+      );
+
+      if (response.data.success) {
+        toast.success("Product added to cart 🛒");
+      } else {
+        toast.error(response.data.message || "Failed to add product to cart");
+      }
+    } catch (error: any) {
+      console.error("Add to cart error:", error);
+      toast.error(
+        error.response?.data?.message ||
+          "Something went wrong while adding to cart"
+      );
+    }
+  };
+
+  const handleEditProduct = async (rating: any, stock: any) => {
+    try {
+      const response = await axios.patch(
+        "http://localhost:3000/products/editProduct",
+        {
+          id: id,
+          rating: rating,
+          stock: stock,
+        }
+      );
+      if (response.data.success) {
+        fetchProductData();
+      } else toast.error(response.data.message || "Failed to edit a product");
+    } catch (error: any) {
+      console.error("Error during editing a product:", error);
     }
   };
 
@@ -170,9 +234,20 @@ const Product = () => {
         setOpinions(response.data.data);
       } else console.log(response.data.message || "failed to load data");
     } catch (error: any) {
-      console.error("Error during fetching data:", error);
-      console.error("AXIOS ERROR DATA:", error.response?.data);
-
+      console.log(error.response?.data?.message || "error occurred");
+    }
+  };
+  const fetchProductData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/product/${id}`);
+      console.log("product", response.data.data);
+      if (response.data.success) {
+        setProduct((prev) => ({
+          ...response.data.data[0],
+          size: prev.size,
+        }));
+      } else console.log(response.data.message || "failed to load data");
+    } catch (error: any) {
       console.log(error.response?.data?.message || "error occurred");
     }
   };
@@ -187,9 +262,6 @@ const Product = () => {
         setOpinionsToEdit(response.data.data);
       } else console.log(response.data.message || "failed to load data");
     } catch (error: any) {
-      console.error("Error during fetching data:", error);
-      console.error("AXIOS ERROR DATA:", error.response?.data);
-
       console.log(error.response?.data?.message || "error occurred");
     }
   };
@@ -219,6 +291,7 @@ const Product = () => {
       >
         <img
           style={{
+            maxWidth: "50vw",
             width: "auto",
             height: "105vh",
           }}
@@ -271,22 +344,35 @@ const Product = () => {
           >
             Choose size firstly
           </div>
-          <Quantity max={product.stock}></Quantity>
+          <Quantity
+            max={product.stock}
+            value={quantity}
+            onChange={setQuantity}
+          />
+
           <p className="comments">In stock: {product.stock}</p>
           <button
             className={
-              selected === -1 || !userData ? "accept-bt_nonactive" : "accept-bt"
+              selected === -1 || !userData || product.stock === 0
+                ? "accept-bt_nonactive"
+                : "accept-bt"
             }
             style={{ width: "40vh", justifySelf: "center" }}
             onClick={() => {
               if (selected === -1) {
                 setSizeErr(true);
+                return;
+              } else if (product.stock === 0) {
+                return;
               } else if (!userData) {
                 setLoginError(true);
+                return;
               }
+              handleAddingProductToCart();
+              // handleEditProduct(product.rating, product.stock - 1);
             }}
           >
-            Add to Shopping Bag
+            {product.stock !== 0 ? "Add to Shopping Bag" : "Out of Stock"}
           </button>
           <div
             className="error"
@@ -386,6 +472,7 @@ const Product = () => {
                                 ) || userData.admin === 1
                               )
                             }
+                            className="delete"
                             style={{ cursor: "pointer" }}
                             onClick={() => {
                               handleDeleteOpinion(opinion.id);
