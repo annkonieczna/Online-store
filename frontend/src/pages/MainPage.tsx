@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Photo from "../components/Photo";
+import Footer from "../components/Footer";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       </div>
 
       <div className="relative w-full min-h-screen mt-20 overflow-hidden">
-        {/* <video
+        <video
     className="absolute inset-0 w-full h-full object-cover"
     autoPlay
     muted
@@ -24,7 +25,7 @@ function App() {
     playsInline
   >
     <source src="/black.mp4" type="video/mp4" />
-  </video> */}
+  </video>
 
         <div className="relative z-10 ">
           <div className="text-[50px] flex justify-center mb-12">
@@ -41,6 +42,7 @@ function App() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
