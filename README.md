@@ -23,6 +23,7 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 
 - pobranie listy produktów (mock API)
 - wyszukiwarka po nazwie
+- filtrowanie produktów po nazwie, cenie i kategorii
 - widok szczegółów produktu
 - dostępność produktu
 - dodawanie opinii (1 opinia na użytkownika)
@@ -60,5 +61,8 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 
 ### Użyte biblioteki
 
--Tailwind
--Nodemon
+- Tailwind
+- Nodemon
+- MUI react
+- Axios
+- Shadcn ui
