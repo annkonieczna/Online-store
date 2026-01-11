@@ -205,7 +205,7 @@ const Product = () => {
     <div>
       <div>
         <div className="absolute top-0 left-0 w-full z-20">
-          <Navbar />
+          <Navbar Shouldhover={true} />
         </div>
       </div>
 

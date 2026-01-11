@@ -5,6 +5,7 @@ import type { Product } from "../context/ProductsContext";
 import Navbar from "../components/Navbar";
 import { Link, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
+import Rating from "@mui/material/Rating";
 
 export default function SearchPage() {
   const {filteredProducts,setFilters} = useProducts();
@@ -20,7 +21,7 @@ export default function SearchPage() {
 
   return (
     <div className="p-10">
-      <Navbar></Navbar>
+      <Navbar Shouldhover={false}></Navbar>
       <div className="flex flex-row ">
         <SearchBar />
         <Filters />
@@ -47,6 +48,7 @@ export default function SearchPage() {
       <p className="mt-2 text-lg font-bold text-gray-900">
         ${product.price}
       </p>
+      <div><Rating name="read-only" value={product.rating} readOnly /></div>
     </div>
   </div>
 </Link>

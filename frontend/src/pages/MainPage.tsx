@@ -8,7 +8,7 @@ function App() {
     <>
       <div className="relative w-full h-screen">
         <div className="absolute top-0 left-0 w-full z-20">
-          <Navbar />
+          <Navbar Shouldhover={true} ></Navbar>
         </div>
 
         <video className="w-full h-155 object-cover" autoPlay muted loop>

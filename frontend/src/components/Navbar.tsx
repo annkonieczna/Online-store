@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserRound, Menu, Search, ShoppingBasket } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-export default function Navbar() {
+export default function Navbar({Shouldhover}:{Shouldhover:boolean}) {
   const [hovered, setHovered] = useState(false);
   const [userData, setUserData] = useState(null);
   const location = useLocation();
@@ -19,10 +19,10 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`navbar ${
+        className={` ${ Shouldhover ?
           hovered
             ? "bg-white border-t  border-b border-black border-solid transition ease-in-out transform-[3s] "
-            : "bg-transparent"
+            : "bg-transparent" : ""
         } flex flex-row justify-between mb-2.5`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
