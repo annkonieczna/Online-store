@@ -62,7 +62,6 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 ### Użyte biblioteki
 
 - Tailwind
-- Nodemon
 - MUI react
 - Axios
 - Shadcn ui

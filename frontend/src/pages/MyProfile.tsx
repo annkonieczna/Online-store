@@ -31,7 +31,7 @@ const MyProfile = () => {
         height: "100vh",
       }}
     >
-      <Navbar></Navbar>
+      <Navbar Shouldhover={false}></Navbar>
       <div
         style={{
           backgroundColor: "rgba(255, 255, 255, 0.5)",
