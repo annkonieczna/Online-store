@@ -117,16 +117,16 @@ export default function History() {
           ))}
         </div>
 
-        <div className="rightpart">
-          <p
-            className="comments"
-            style={{ textDecoration: "underline", cursor: "pointer" }}
+        <div className="right">
+          <button
+            className="continue-btn"
             onClick={() => navigate("/Search")}
           >
             Continue shopping
-          </p>
+          </button>
         </div>
       </div>
     </div>
   );
 }
+
