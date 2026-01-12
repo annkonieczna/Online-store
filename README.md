@@ -12,11 +12,11 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 
 ### 👤 Użytkownicy
 
-- logowanie na zamockowane konta
+- logowanie do strony
 - rejestracja nowego użytkownika
 - zachowanie sesji użytkownika
 - role użytkowników:
-  - **user** – dodawanie opinii, zarządzanie koszykiem
+  - **user** – dodawanie opinii, zarządzanie koszykiem, edycja swoih opinii
   - **admin** – usuwanie wszystkich opinii
 
 ### 🛍️ Produkty
