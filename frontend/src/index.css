@@ -285,6 +285,33 @@ main {
   margin: 10%;
   justify-self: center;
 }
+.order-box {
+  border: 1px solid #e2e2e2;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.order-footer {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.status.paid { background: #d4f5d4; }
+.status.pending { background: #f5efd4; }
+.status.shipped { background: #d4e6f5; }
+.status.cancelled { background: #f5d4d4; }
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
