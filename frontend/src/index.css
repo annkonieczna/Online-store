@@ -302,16 +302,40 @@ main {
   margin-top: 10px;
 }
 
-.status {
-  padding: 4px 10px;
-  border-radius: 10px;
-  font-size: 12px;
+.right {
+  flex: 1;
+  position: sticky;
+  top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  padding: 2rem;
+}
+.continue-btn {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border-radius: 999px;
+  border: 2px solid #000;
+  background-color: white;
+  color: #000;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.status.paid { background: #d4f5d4; }
-.status.pending { background: #f5efd4; }
-.status.shipped { background: #d4e6f5; }
-.status.cancelled { background: #f5d4d4; }
+.continue-btn:hover {
+  background-color: #000;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.continue-btn:active {
+  transform: translateY(0);
+}
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
