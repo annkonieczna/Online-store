@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { UserRound, Menu, Search, ShoppingBasket } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 export default function Navbar({ Shouldhover }: { Shouldhover: boolean }) {
   const [hovered, setHovered] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -30,9 +35,43 @@ export default function Navbar({ Shouldhover }: { Shouldhover: boolean }) {
         onMouseLeave={() => setHovered(false)}
       >
         <div className="navbar-left  flex flex-row ml-5 mt-5 gap-3.75">
-          <button className="button cursor-pointer  flex flex-row ">
-            <Menu /> Menu
-          </button>
+          <Popover>
+  <PopoverTrigger asChild>
+    <button className="button cursor-pointer flex flex-row items-center gap-2 mb-4.25">
+      <Menu />
+      Menu
+    </button>
+  </PopoverTrigger>
+
+  <PopoverContent
+    side="bottom"
+    align="start"
+    className="w-48 p-2 rounded-2xl shadow-lg"
+  >
+    <div className="flex flex-col gap-1">
+      <Link
+        to="/search?category=women"
+        className="px-3 py-2 rounded-xl hover:bg-muted transition"
+      >
+        Women
+      </Link>
+
+      <Link
+        to="/search?category=men"
+        className="px-3 py-2 rounded-xl hover:bg-muted transition"
+      >
+        Men
+      </Link>
+
+      <Link
+        to="/search?category=kids"
+        className="px-3 py-2 rounded-xl hover:bg-muted transition"
+      >
+        Kids
+      </Link>
+    </div>
+  </PopoverContent>
+</Popover>
 
           <Link to="/search">
             <button className="button cursor-pointer flex flex-row">
@@ -46,7 +85,7 @@ export default function Navbar({ Shouldhover }: { Shouldhover: boolean }) {
         <div className="navbar-right flex flex-row mr-5 mt-5 gap-3.75">
           <Link to={!userData ? "/SignIn" : "/MyProfile"}>
             <button className=" flex flex-row cursor-pointer">
-              <UserRound/>
+              <UserRound />
               Profile
             </button>
           </Link>
@@ -56,7 +95,6 @@ export default function Navbar({ Shouldhover }: { Shouldhover: boolean }) {
               <ShoppingBasket className="cursor-pointer flex flex-row" />
             </button>
           </Link>
-          
         </div>
       </nav>
     </>
