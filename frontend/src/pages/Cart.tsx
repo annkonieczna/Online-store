@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -139,112 +140,122 @@ export default function Cart() {
 
   return (
     <div>
-      <Navbar Shouldhover= {false}></Navbar>
-      <div className="cart-container">
-        <div className="leftpart">
-          <p>
-            <b>My Selection</b> ({productsInCart.length})
-          </p>
-          <div hidden={productsInCart.length !== 0}>
-            <p className="no-products">
-              There are no products in your cart yet
+      <div style={{ minHeight: "100vh" }}>
+        <Navbar Shouldhover={false}></Navbar>
+        <div className="cart-container">
+          <div className="leftpart">
+            <p>
+              <b>My Selection</b> ({productsInCart.length})
             </p>
-          </div>
-          {productsInCart.map((product) => (
-            <div
-              className="product"
-              style={{
-                backgroundColor:
-                  product.stock === 0 ? "rgba(226, 226, 226, 1)" : "white",
-                //opacity: product.stock === 0 ? "20%" : "0%",
-              }}
-              key={product.productId + product.size}
-            >
-              <div className="smallImage">
-                <img src={product.image} alt={product.title} />
-              </div>
-
-              <div className="product-info">
-                <div className="product-header">
-                  <p
-                    className="product-title"
-                    onClick={() => navigate(`/product/${product.productId}`)}
-                  >
-                    {product.title}
-                  </p>
-                  <div
-                    className="delete"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteProduct(product);
-                    }}
-                  >
-                    <Trash2 />
-                  </div>
+            <div hidden={productsInCart.length !== 0}>
+              <p className="no-products">
+                There are no products in your cart yet
+              </p>
+            </div>
+            {productsInCart.map((product) => (
+              <div
+                className="product"
+                style={{
+                  backgroundColor:
+                    product.stock === 0 ? "rgba(226, 226, 226, 1)" : "white",
+                  //opacity: product.stock === 0 ? "20%" : "0%",
+                }}
+                key={product.productId + product.size}
+              >
+                <div className="smallImage">
+                  <img src={product.image} alt={product.title} />
                 </div>
 
-                {/* <p
+                <div className="product-info">
+                  <div className="product-header">
+                    <p
+                      className="product-title"
+                      onClick={() => navigate(`/product/${product.productId}`)}
+                    >
+                      {product.title}
+                    </p>
+                    <div
+                      className="delete"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteProduct(product);
+                      }}
+                    >
+                      <Trash2 />
+                    </div>
+                  </div>
+
+                  {/* <p
                   className="comments"
                   style={{ textDecoration: "underline" }}
                   
                 >
                   View Product
                 </p> */}
-                <p>Size: {product.size}</p>
+                  <p>Size: {product.size}</p>
 
-                <div className="price-quantity-row">
-                  <p className="product-price">
-                    {Number(product.price).toFixed(2)} $
+                  <div className="price-quantity-row">
+                    <p className="product-price">
+                      {Number(product.price).toFixed(2)} $
+                    </p>
+                    <Quantity
+                      value={product.quantity}
+                      max={product.stock}
+                      onChange={(newquantity) =>
+                        handleUpdateQuantity(product, newquantity)
+                      }
+                    />
+                  </div>
+
+                  <p className="product-total">
+                    {product.stock !== 0
+                      ? `Total: ${(product.price * product.quantity).toFixed(
+                          2
+                        )}$`
+                      : "Out of Stock"}
                   </p>
-                  <Quantity
-                    value={product.quantity}
-                    max={product.stock}
-                    onChange={(newquantity) =>
-                      handleUpdateQuantity(product, newquantity)
-                    }
-                  />
                 </div>
-
-                <p className="product-total">
-                  {product.stock !== 0
-                    ? `Total: ${(product.price * product.quantity).toFixed(2)}$`
-                    : "Out of Stock"}
-                </p>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="rightpart">
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <b>Total:</b> {total.toFixed(2)} $
+            ))}
           </div>
+          <div className="rightpart">
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <b>Total:</b> {total.toFixed(2)} $
+            </div>
 
-          <button
-            className={
-              productsInCart.length > 0 ? "accept-bt" : " accept-bt_nonactive"
-            }
-            style={{ width: "60%", justifySelf: "center", marginBottom: "2%" }}
-            onClick={() => {
-              if (productsInCart.length === 0) return;
-              handleCreatingOrder();
-            }}
-          >
-            Order products
-          </button>
-          <p
-            className="comments"
-            style={{
-              textDecoration: "underline",
-              cursor: "pointer",
+            <button
+              className={
+                productsInCart.length > 0 ? "accept-bt" : " accept-bt_nonactive"
+              }
+              style={{
+                width: "60%",
+                justifySelf: "center",
+                marginBottom: "2%",
+              }}
+              onClick={() => {
+                if (productsInCart.length === 0) return;
+                handleCreatingOrder();
+              }}
+            >
+              Order products
+            </button>
+            <p
+              className="comments"
+              style={{
+                textDecoration: "underline",
+                cursor: "pointer",
 
-              margin: "0%",
-            }}
-            onClick={() => navigate("/Search")}
-          >
-            Continue shopping
-          </p>
+                margin: "0%",
+              }}
+              onClick={() => navigate("/Search")}
+            >
+              Continue shopping
+            </p>
+          </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

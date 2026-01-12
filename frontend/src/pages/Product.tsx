@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import Quantity from "../components/quantity";
 import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom";
@@ -279,229 +280,158 @@ const Product = () => {
         <div className="absolute top-0 left-0 w-full z-20">
           <Navbar Shouldhover={true} />
         </div>
-      </div>
+        <div></div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
-        }}
-      >
-        <img
+        <div
           style={{
-            maxWidth: "50vw",
-            width: "auto",
-            height: "105vh",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
           }}
-          src={product.image}
-          alt=""
-        />
-        <div style={{ margin: "10vw", width: "30vw" }}>
-          <p className="comments">New</p>
-          <p style={{ fontSize: "170%", fontWeight: "bold" }}>
-            {product.title}
-          </p>
-          <p style={{ fontSize: "140%", fontWeight: "inherit" }}>
-            {String(product.price).includes(".")
-              ? product.price
-              : product.price + ".00"}{" "}
-            $
-          </p>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            {product.size.map((size, id) => {
-              return (
-                <button
-                  style={{
-                    width: "10%",
-                    height: "100%",
-                    margin: "0.5vw",
-                    marginTop: "3vh",
-                    borderRadius: "10%",
-                    border: `${
-                      selected !== id ? "1px solid black" : "1px solid white"
-                    }`,
-                    backgroundColor: `${selected !== id ? "white" : "black"}`,
-                    color: `${selected !== id ? " black" : "white"}`,
-                  }}
-                  onClick={() => {
-                    setSel(id);
-                    setSizeErr(false);
-                  }}
-                >
-                  {size}
-                </button>
-              );
-            })}
-          </div>
-          <div
-            className="error"
+        >
+          <img
             style={{
-              fontSize: "70%",
+              maxWidth: "50vw",
+              width: "auto",
+              height: "105vh",
             }}
-            hidden={!sizeError}
-          >
-            Choose size firstly
-          </div>
-          <Quantity
-            max={product.stock}
-            value={quantity}
-            onChange={setQuantity}
+            src={product.image}
+            alt=""
           />
-
-          <p className="comments">In stock: {product.stock}</p>
-          <button
-            className={
-              selected === -1 || !userData || product.stock === 0
-                ? "accept-bt_nonactive"
-                : "accept-bt"
-            }
-            style={{ width: "40vh", justifySelf: "center" }}
-            onClick={() => {
-              if (selected === -1) {
-                setSizeErr(true);
-                return;
-              } else if (product.stock === 0) {
-                return;
-              } else if (!userData) {
-                setLoginError(true);
-                return;
-              }
-              handleAddingProductToCart();
-              // handleEditProduct(product.rating, product.stock - 1);
-            }}
-          >
-            {product.stock !== 0 ? "Add to Shopping Bag" : "Out of Stock"}
-          </button>
-          <div
-            className="error"
-            style={{
-              fontSize: "70%",
-            }}
-            hidden={!LoginError}
-          >
-            Sign in to add product to your cart
-          </div>
-          <p className="comments" style={{}}>
-            Category: {product.category}
-          </p>
-          <p
-            style={{
-              fontSize: "90%",
-              fontWeight: "inherit",
-              marginTop: "3vh",
-            }}
-          >
-            <b>Description:</b>
-            <br /> {product.description}
-          </p>
-          <p
-            style={{
-              fontSize: "90%",
-              fontWeight: "inherit",
-              marginTop: "3vh",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <b>Rating:</b>{" "}
-            <Rating name="read-only" value={product.rating} readOnly />
-          </p>
-          <div>
-            <button
-              style={{
-                justifySelf: "flex-start",
-                marginLeft: "0%",
-                fontSize: "87%",
-                height: "95%",
-                borderRadius: "0",
-              }}
-              className="accept-bt"
-              onClick={() => setVisib(!visibilityOp)}
-            >
-              Opinions
-            </button>
-            <div hidden={!visibilityOp || opinions.length !== 0}>
-              There are no opinions about the product yet
-            </div>
-            <div hidden={!visibilityOp}>
-              {opinions.map((opinion, _id) => {
+          <div style={{ margin: "10vw", width: "30vw" }}>
+            <p className="comments">New</p>
+            <p style={{ fontSize: "170%", fontWeight: "bold" }}>
+              {product.title}
+            </p>
+            <p style={{ fontSize: "140%", fontWeight: "inherit" }}>
+              {String(product.price).includes(".")
+                ? product.price
+                : product.price + ".00"}{" "}
+              $
+            </p>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {product.size.map((size, id) => {
                 return (
-                  <div>
-                    <div
-                      hidden={editingOpinionId === opinion.id}
-                      style={{
-                        border: "1px solid black",
-                        borderRadius: "1vh",
-                        width: "100%",
-                        minHeight: "10vh",
-                        margin: "2vh",
-                        padding: "2%",
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontSize: "105%",
-                          justifyContent: "space-between",
-                          display: "flex",
-                          flexDirection: "row",
-                        }}
-                      >
-                        <b>{opinion.title}</b>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            flexDirection: "row",
-                          }}
-                        >
-                          <p>
-                            <Rating
-                              name="read-only"
-                              value={opinion.rating}
-                              readOnly
-                            />
-                          </p>
+                  <button
+                    style={{
+                      width: "10%",
+                      height: "100%",
+                      margin: "0.5vw",
+                      marginTop: "3vh",
+                      borderRadius: "10%",
+                      border: `${
+                        selected !== id ? "1px solid black" : "1px solid white"
+                      }`,
+                      backgroundColor: `${selected !== id ? "white" : "black"}`,
+                      color: `${selected !== id ? " black" : "white"}`,
+                    }}
+                    onClick={() => {
+                      setSel(id);
+                      setSizeErr(false);
+                    }}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
+            </div>
+            <div
+              className="error"
+              style={{
+                fontSize: "70%",
+              }}
+              hidden={!sizeError}
+            >
+              Choose size firstly
+            </div>
+            <Quantity
+              max={product.stock}
+              value={quantity}
+              onChange={setQuantity}
+            />
 
-                          <div
-                            hidden={
-                              !(
-                                opinionsToEdit.some(
-                                  (op) => op.id === opinion.id
-                                ) || userData.admin === 1
-                              )
-                            }
-                            className="delete"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                              handleDeleteOpinion(opinion.id);
-                            }}
-                          >
-                            <Trash2 />
-                          </div>
-                          <div
-                            hidden={
-                              !opinionsToEdit.some((op) => op.id === opinion.id)
-                            }
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                              setEditingOpinionId(opinion.id);
-                              setEditingOpinionData(opinion);
-                            }}
-                          >
-                            <Pencil />
-                          </div>
-                        </div>
-                      </p>
-                      <hr />
-                      <br />
-                      <text style={{ whiteSpace: "pre-wrap" }}>
-                        {opinion.context}
-                      </text>
-                    </div>
-                    <div hidden={editingOpinionId !== opinion.id}>
+            <p className="comments">In stock: {product.stock}</p>
+            <button
+              className={
+                selected === -1 || !userData || product.stock === 0
+                  ? "accept-bt_nonactive"
+                  : "accept-bt"
+              }
+              style={{ width: "40vh", justifySelf: "center" }}
+              onClick={() => {
+                if (selected === -1) {
+                  setSizeErr(true);
+                  return;
+                } else if (product.stock === 0) {
+                  return;
+                } else if (!userData) {
+                  setLoginError(true);
+                  return;
+                }
+                handleAddingProductToCart();
+                // handleEditProduct(product.rating, product.stock - 1);
+              }}
+            >
+              {product.stock !== 0 ? "Add to Shopping Bag" : "Out of Stock"}
+            </button>
+            <div
+              className="error"
+              style={{
+                fontSize: "70%",
+              }}
+              hidden={!LoginError}
+            >
+              Sign in to add product to your cart
+            </div>
+            <p className="comments" style={{}}>
+              Category: {product.category}
+            </p>
+            <p
+              style={{
+                fontSize: "90%",
+                fontWeight: "inherit",
+                marginTop: "3vh",
+              }}
+            >
+              <b>Description:</b>
+              <br /> {product.description}
+            </p>
+            <p
+              style={{
+                fontSize: "90%",
+                fontWeight: "inherit",
+                marginTop: "3vh",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <b>Rating:</b>{" "}
+              <Rating name="read-only" value={product.rating} readOnly />
+            </p>
+            <div>
+              <button
+                style={{
+                  justifySelf: "flex-start",
+                  marginLeft: "0%",
+                  fontSize: "87%",
+                  height: "95%",
+                  borderRadius: "0",
+                }}
+                className="accept-bt"
+                onClick={() => setVisib(!visibilityOp)}
+              >
+                Opinions
+              </button>
+              <div hidden={!visibilityOp || opinions.length !== 0}>
+                There are no opinions about the product yet
+              </div>
+              <div hidden={!visibilityOp}>
+                {opinions.map((opinion, _id) => {
+                  return (
+                    <div>
                       <div
+                        hidden={editingOpinionId === opinion.id}
                         style={{
                           border: "1px solid black",
                           borderRadius: "1vh",
@@ -513,245 +443,320 @@ const Product = () => {
                       >
                         <p
                           style={{
-                            fontSize: "100%",
+                            fontSize: "105%",
                             justifyContent: "space-between",
                             display: "flex",
                             flexDirection: "row",
                           }}
                         >
-                          <input
-                            value={editingOpinionData.title}
+                          <b>{opinion.title}</b>
+                          <div
                             style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "row",
+                            }}
+                          >
+                            <p>
+                              <Rating
+                                name="read-only"
+                                value={opinion.rating}
+                                readOnly
+                              />
+                            </p>
+
+                            <div
+                              hidden={
+                                !(
+                                  opinionsToEdit.some(
+                                    (op) => op.id === opinion.id
+                                  ) || userData.admin === 1
+                                )
+                              }
+                              className="delete"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                handleDeleteOpinion(opinion.id);
+                              }}
+                            >
+                              <Trash2 />
+                            </div>
+                            <div
+                              hidden={
+                                !opinionsToEdit.some(
+                                  (op) => op.id === opinion.id
+                                )
+                              }
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                setEditingOpinionId(opinion.id);
+                                setEditingOpinionData(opinion);
+                              }}
+                            >
+                              <Pencil />
+                            </div>
+                          </div>
+                        </p>
+                        <hr />
+                        <br />
+                        <text style={{ whiteSpace: "pre-wrap" }}>
+                          {opinion.context}
+                        </text>
+                      </div>
+                      <div hidden={editingOpinionId !== opinion.id}>
+                        <div
+                          style={{
+                            border: "1px solid black",
+                            borderRadius: "1vh",
+                            width: "100%",
+                            minHeight: "10vh",
+                            margin: "2vh",
+                            padding: "2%",
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: "100%",
+                              justifyContent: "space-between",
+                              display: "flex",
+                              flexDirection: "row",
+                            }}
+                          >
+                            <input
+                              value={editingOpinionData.title}
+                              style={{
+                                paddingLeft: "1%",
+                                paddingRight: "1%",
+                                paddingTop: "0.5%",
+                                paddingBottom: "0.5%",
+                              }}
+                              type="text"
+                              onChange={(e) =>
+                                setEditingOpinionData({
+                                  ...editingOpinionData,
+                                  title: e.target.value,
+                                })
+                              }
+                            />
+                            <p>
+                              <Rating
+                                name="simple-controlled"
+                                value={editingOpinionData.rating}
+                                onChange={(event, newValue) => {
+                                  setEditingOpinionData({
+                                    ...editingOpinionData,
+                                    rating: newValue ?? 0,
+                                  });
+                                }}
+                              />
+                            </p>
+                          </p>
+                          <hr />
+                          <br />
+                          <textarea
+                            value={editingOpinionData.context}
+                            style={{
+                              width: "100%",
                               paddingLeft: "1%",
                               paddingRight: "1%",
                               paddingTop: "0.5%",
                               paddingBottom: "0.5%",
                             }}
-                            type="text"
                             onChange={(e) =>
                               setEditingOpinionData({
                                 ...editingOpinionData,
-                                title: e.target.value,
+                                context: e.target.value,
                               })
                             }
+                            rows={3}
                           />
-                          <p>
-                            <Rating
-                              name="simple-controlled"
-                              value={editingOpinionData.rating}
-                              onChange={(event, newValue) => {
-                                setEditingOpinionData({
-                                  ...editingOpinionData,
-                                  rating: newValue ?? 0,
-                                });
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <button
+                              style={{
+                                width: "40%",
+                                marginRight: "0",
+                                marginBottom: "0",
                               }}
-                            />
-                          </p>
-                        </p>
-                        <hr />
-                        <br />
-                        <textarea
-                          value={editingOpinionData.context}
-                          style={{
-                            width: "100%",
-                            paddingLeft: "1%",
-                            paddingRight: "1%",
-                            paddingTop: "0.5%",
-                            paddingBottom: "0.5%",
-                          }}
-                          onChange={(e) =>
-                            setEditingOpinionData({
-                              ...editingOpinionData,
-                              context: e.target.value,
-                            })
-                          }
-                          rows={3}
-                        />
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <button
-                            style={{
-                              width: "40%",
-                              marginRight: "0",
-                              marginBottom: "0",
-                            }}
-                            className="accept-bt_reverse"
-                            onClick={() => {
-                              setEditingOpinionId(null);
-                              setEditingOpinionData(initialOpinion);
-                            }}
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            style={{
-                              width: "40%",
-                              marginRight: "0",
-                              marginBottom: "0",
-                            }}
-                            className="accept-bt"
-                            onClick={() => {
-                              const finalOpinion = {
-                                id: opinion.id,
-                                rating: editingOpinionData.rating,
-                                title:
-                                  editingOpinionData.title.trim() === ""
-                                    ? "Anonim"
-                                    : editingOpinionData.title,
-                                context:
-                                  editingOpinionData.context.trim() === ""
-                                    ? "No description"
-                                    : editingOpinionData.context,
-                              };
-                              handleEditOpinion(finalOpinion);
-                              setEditingOpinionId(null);
-                              setEditingOpinionData(initialOpinion);
-                            }}
-                          >
-                            Edit opinion
-                          </button>
+                              className="accept-bt_reverse"
+                              onClick={() => {
+                                setEditingOpinionId(null);
+                                setEditingOpinionData(initialOpinion);
+                              }}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              style={{
+                                width: "40%",
+                                marginRight: "0",
+                                marginBottom: "0",
+                              }}
+                              className="accept-bt"
+                              onClick={() => {
+                                const finalOpinion = {
+                                  id: opinion.id,
+                                  rating: editingOpinionData.rating,
+                                  title:
+                                    editingOpinionData.title.trim() === ""
+                                      ? "Anonim"
+                                      : editingOpinionData.title,
+                                  context:
+                                    editingOpinionData.context.trim() === ""
+                                      ? "No description"
+                                      : editingOpinionData.context,
+                                };
+                                handleEditOpinion(finalOpinion);
+                                setEditingOpinionId(null);
+                                setEditingOpinionData(initialOpinion);
+                              }}
+                            >
+                              Edit opinion
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div
-              hidden={
-                !visibilityOp ||
-                isOpen ||
-                userData === null ||
-                opinionsToEdit.length > 0 ||
-                userData.admin === 1
-              }
-              style={{
-                textDecoration: "underline",
-                cursor: "pointer",
-                marginTop: "5%",
-              }}
-              onClick={() => setIsOpen(true)}
-            >
-              Add an opinion
-            </div>
-            <div
-              className="comments"
-              hidden={userData !== null || !visibilityOp}
-              style={{
-                marginTop: "5%",
-              }}
-            >
-              Sign in to add an opinion
-            </div>
-            <div hidden={!isOpen || !visibilityOp}>
+                  );
+                })}
+              </div>
               <div
+                hidden={
+                  !visibilityOp ||
+                  isOpen ||
+                  userData === null ||
+                  opinionsToEdit.length > 0 ||
+                  userData.admin === 1
+                }
                 style={{
-                  border: "1px solid black",
-                  borderRadius: "1vh",
-                  width: "100%",
-                  minHeight: "10vh",
-                  margin: "2vh",
-                  padding: "2%",
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  marginTop: "5%",
+                }}
+                onClick={() => setIsOpen(true)}
+              >
+                Add an opinion
+              </div>
+              <div
+                className="comments"
+                hidden={userData !== null || !visibilityOp}
+                style={{
+                  marginTop: "5%",
                 }}
               >
-                <p
+                Sign in to add an opinion
+              </div>
+              <div hidden={!isOpen || !visibilityOp}>
+                <div
                   style={{
-                    fontSize: "100%",
-                    justifyContent: "space-between",
-                    display: "flex",
-                    flexDirection: "row",
+                    border: "1px solid black",
+                    borderRadius: "1vh",
+                    width: "100%",
+                    minHeight: "10vh",
+                    margin: "2vh",
+                    padding: "2%",
                   }}
                 >
-                  <input
-                    value={newOp.title}
+                  <p
                     style={{
+                      fontSize: "100%",
+                      justifyContent: "space-between",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <input
+                      value={newOp.title}
+                      style={{
+                        paddingLeft: "1%",
+                        paddingRight: "1%",
+                        paddingTop: "0.5%",
+                        paddingBottom: "0.5%",
+                      }}
+                      type="text"
+                      placeholder="Your name"
+                      onChange={(e) =>
+                        setnewOp({ ...newOp, title: e.target.value })
+                      }
+                    />
+                    <p>
+                      <Rating
+                        name="simple-controlled"
+                        value={newOp.rating}
+                        onChange={(event, newValue) => {
+                          setnewOp({ ...newOp, rating: newValue ?? 0 });
+                        }}
+                      />
+                    </p>
+                  </p>
+                  <hr />
+                  <br />
+                  <textarea
+                    placeholder="Opinion"
+                    value={newOp.context}
+                    style={{
+                      width: "100%",
                       paddingLeft: "1%",
                       paddingRight: "1%",
                       paddingTop: "0.5%",
                       paddingBottom: "0.5%",
                     }}
-                    type="text"
-                    placeholder="Your name"
                     onChange={(e) =>
-                      setnewOp({ ...newOp, title: e.target.value })
+                      setnewOp({ ...newOp, context: e.target.value })
                     }
+                    rows={3}
                   />
-                  <p>
-                    <Rating
-                      name="simple-controlled"
-                      value={newOp.rating}
-                      onChange={(event, newValue) => {
-                        setnewOp({ ...newOp, rating: newValue ?? 0 });
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <button
+                      style={{
+                        width: "40%",
+                        marginRight: "0",
+                        marginBottom: "0",
                       }}
-                    />
-                  </p>
-                </p>
-                <hr />
-                <br />
-                <textarea
-                  placeholder="Opinion"
-                  value={newOp.context}
-                  style={{
-                    width: "100%",
-                    paddingLeft: "1%",
-                    paddingRight: "1%",
-                    paddingTop: "0.5%",
-                    paddingBottom: "0.5%",
-                  }}
-                  onChange={(e) =>
-                    setnewOp({ ...newOp, context: e.target.value })
-                  }
-                  rows={3}
-                />
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <button
-                    style={{
-                      width: "40%",
-                      marginRight: "0",
-                      marginBottom: "0",
-                    }}
-                    className="accept-bt_reverse"
-                    onClick={() => {
-                      setIsOpen(false);
-                      setnewOp(initialOpinion);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    style={{
-                      width: "40%",
-                      marginRight: "0",
-                      marginBottom: "0",
-                    }}
-                    className="accept-bt"
-                    onClick={() => {
-                      const finalOpinion = {
-                        ...newOp,
-                        title:
-                          newOp.title.trim() === "" ? "Anonim" : newOp.title,
-                        context:
-                          newOp.context.trim() === ""
-                            ? "No description"
-                            : newOp.context,
-                      };
-                      handleAddOpinion(finalOpinion);
-                    }}
-                  >
-                    Add opinion
-                  </button>
+                      className="accept-bt_reverse"
+                      onClick={() => {
+                        setIsOpen(false);
+                        setnewOp(initialOpinion);
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      style={{
+                        width: "40%",
+                        marginRight: "0",
+                        marginBottom: "0",
+                      }}
+                      className="accept-bt"
+                      onClick={() => {
+                        const finalOpinion = {
+                          ...newOp,
+                          title:
+                            newOp.title.trim() === "" ? "Anonim" : newOp.title,
+                          context:
+                            newOp.context.trim() === ""
+                              ? "No description"
+                              : newOp.context,
+                        };
+                        handleAddOpinion(finalOpinion);
+                      }}
+                    >
+                      Add opinion
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

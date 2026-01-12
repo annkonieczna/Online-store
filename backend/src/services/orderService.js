@@ -6,7 +6,6 @@ export const createOrderFromCart = async (userId) => {
   try {
     await connection.beginTransaction();
 
-    // 1. Pobierz produkty z koszyka wraz z aktualnym stock
     const [cartItems] = await connection.query(
       `
       SELECT 
@@ -28,7 +27,6 @@ export const createOrderFromCart = async (userId) => {
       throw new Error("Cart is empty");
     }
 
-    // 2. Sprawdź stock
     for (const item of cartItems) {
       if (item.quantity > item.stock) {
         throw new Error(
@@ -37,13 +35,11 @@ export const createOrderFromCart = async (userId) => {
       }
     }
 
-    // 3. Oblicz total
     const total = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
 
-    // 4. Utwórz order
     const [orderResult] = await connection.query(
       `INSERT INTO orders (user_id, total) VALUES (?, ?)`,
       [userId, total]
@@ -51,9 +47,7 @@ export const createOrderFromCart = async (userId) => {
 
     const orderId = orderResult.insertId;
 
-    // 5. Dodaj order_items i zmniejsz stock
     for (const item of cartItems) {
-      // a) order_items
       await connection.query(
         `
         INSERT INTO order_items 
@@ -63,7 +57,6 @@ export const createOrderFromCart = async (userId) => {
         [orderId, item.product_id, item.size, item.quantity, item.price]
       );
 
-      // b) zmniejsz stock
       await connection.query(
         `
         UPDATE products
@@ -74,7 +67,6 @@ export const createOrderFromCart = async (userId) => {
       );
     }
 
-    // 6. Wyczyść koszyk
     await connection.query(
       `
       DELETE ci FROM cart_items ci
@@ -148,4 +140,3 @@ export const getOrderHistory = async (userId) => {
     return { success: false, error: error.message };
   }
 };
-
