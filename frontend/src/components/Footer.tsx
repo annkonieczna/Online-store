@@ -11,7 +11,9 @@ export default function Footer() {
 
         {/* Links */}
         <div className="flex gap-8 text-sm text-white/70">
-          <a className="hover:text-white transition">About</a>
+          <Link to="https://github.com/annkonieczna/Online-store/blob/main/README.md">
+            <a className="hover:text-white transition">About</a>
+          </Link>
           <Link to={"/ContactUs"}>
             <a className="hover:text-white transition">Contact</a>
           </Link>
