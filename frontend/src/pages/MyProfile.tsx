@@ -102,7 +102,7 @@ const MyProfile = () => {
                   />
                 </div>
               </Link>
-              <div className="box">tu sie jeszcze cos wymysli</div>
+              {/* <div className="box">tu sie jeszcze cos wymysli</div> */}
             </div>
 
             <button

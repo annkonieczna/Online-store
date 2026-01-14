@@ -50,6 +50,7 @@ const Product = () => {
 
   const [opinions, setOpinions] = useState<Opinion[]>([]);
   const [opinionsToEdit, setOpinionsToEdit] = useState<Opinion[]>([]);
+  const [isLoggedin, setIsLoggedin] = useState(false);
   const [product, setProduct] = useState<Product>({
     id: 0,
     name: "",
@@ -71,6 +72,7 @@ const Product = () => {
   useEffect(() => {
     if (userData.id !== 0 && id) {
       fetchOpinionsToEdit();
+      setIsLoggedin(true);
     }
   }, [userData, id, opinions]);
   // useEffect(() => {
@@ -354,7 +356,7 @@ const Product = () => {
             <p className="comments">In stock: {product.stock}</p>
             <button
               className={
-                selected === -1 || !userData || product.stock === 0
+                selected === -1 || !isLoggedin || product.stock === 0
                   ? "accept-bt_nonactive"
                   : "accept-bt"
               }
@@ -365,7 +367,7 @@ const Product = () => {
                   return;
                 } else if (product.stock === 0) {
                   return;
-                } else if (!userData) {
+                } else if (!isLoggedin) {
                   setLoginError(true);
                   return;
                 }
@@ -628,7 +630,7 @@ const Product = () => {
                 hidden={
                   !visibilityOp ||
                   isOpen ||
-                  userData === null ||
+                  !isLoggedin ||
                   opinionsToEdit.length > 0 ||
                   userData.admin === 1
                 }
@@ -643,7 +645,7 @@ const Product = () => {
               </div>
               <div
                 className="comments"
-                hidden={userData !== null || !visibilityOp}
+                hidden={isLoggedin || !visibilityOp}
                 style={{
                   marginTop: "5%",
                 }}
