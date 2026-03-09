@@ -15,7 +15,7 @@ It includes user authentication, product browsing, a shopping cart, and order hi
 ## Preview
 
 <p align="center">
-  <img src="Store.gif" width="400">
+  <img src="Store.gif" width="800">
 </p>
 
 ## Technologies Used
