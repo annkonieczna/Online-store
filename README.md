@@ -7,11 +7,6 @@ Final project for the course **Introduction to Web Applications**.
 This project demonstrates a basic e-commerce application built with React.
 It includes user authentication, product browsing, a shopping cart, and order history functionality.
 
-## Authors
-
-- Anna Konieczna
-- Alicja Czeleń
-
 ## Preview
 
 <p align="center">
@@ -74,3 +69,8 @@ It includes user authentication, product browsing, a shopping cart, and order hi
 - user order list
 - order history
 - detailed view of a single order
+
+## Authors
+
+- Anna Konieczna
+- Alicja Czeleń
