@@ -1,50 +1,18 @@
 # Online-store
 
-Projekt zaliczeniowy z przedmiotu **Wstęp do Aplikacji Internetowych**.  
-Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszyka oraz historii zamówień.
+Final project for the course **Introduction to Web Applications**.
 
-## Autorzy
+## Overview
+
+This project demonstrates a basic e-commerce application built with React.
+It includes user authentication, product browsing, a shopping cart, and order history functionality.
+
+## Authors
 
 - Anna Konieczna
 - Alicja Czeleń
 
-## 📌 Funkcjonalności:
-
-### 👤 Użytkownicy
-
-- logowanie do strony
-- rejestracja nowego użytkownika
-- zachowanie sesji użytkownika
-- role użytkowników:
-  - **user** – dodawanie opinii, zarządzanie koszykiem, edycja swoih opinii
-  - **admin** – usuwanie wszystkich opinii
-
-### 🛍️ Produkty
-
-- pobranie listy produktów (mock API)
-- wyszukiwarka po nazwie
-- filtrowanie produktów po nazwie, cenie i kategorii
-- widok szczegółów produktu
-- dostępność produktu
-- dodawanie opinii (1 opinia na użytkownika)
-
-### 🛒 Koszyk
-
-- dodawanie produktów do koszyka
-- usuwanie produktów z koszyka
-- przeliczanie wartości koszyka
-- akceptacja koszyka (złożenie zamówienia)
-- dostęp do koszyka tylko dla zalogowanych użytkowników
-
-### 📦 Zamówienia
-
-- lista zamówień użytkownika
-- historia zamówień
-- widok szczegółów pojedynczego zamówienia
-
----
-
-## Użyte technologie
+## Technologies Used
 
 ### Frontend
 
@@ -53,15 +21,50 @@ Aplikacja przedstawia prosty sklep internetowy z obsługą użytkowników, koszy
 - Context API
 - CSS
 
-### Backend (mockowany)
+### Backend (mocked)
 
-- lokalne pliki JSON
-- symulacja API
-- autoryzacja JWT (mock)
+- local JSON files
+- simulated API
+- JWT-based authentication (mock)
 
-### Użyte biblioteki
+### Libraries
 
-- Tailwind
-- MUI react
+- Tailwind CSS
+- MUI (Material UI for React)
 - Axios
-- Shadcn ui
+- shadcn/ui
+
+
+## 📌 Features
+
+### 👤 Users
+
+- user login
+- user registration
+- session persistence
+- user roles:
+  - **user** – adding reviews, managing the shopping cart, editing their own reviews
+  - **admin** – removing all reviews
+
+### 🛍️ Products
+
+- fetching the list of products (mock API)
+- product search by name
+- filtering products by name, price, and category
+- product details view
+- product availability display
+- adding reviews (one review per user)
+
+### 🛒 Shopping Cart
+
+- adding products to the cart
+- removing products from the cart
+- automatic cart value calculation
+- placing an order
+- cart access only for logged-in users
+
+### 📦 Orders
+
+- user order list
+- order history
+- detailed view of a single order
