@@ -12,6 +12,12 @@ It includes user authentication, product browsing, a shopping cart, and order hi
 - Anna Konieczna
 - Alicja Czeleń
 
+## Preview
+
+<p align="center">
+  <img src="Store.gif" width="400">
+</p>
+
 ## Technologies Used
 
 ### Frontend
