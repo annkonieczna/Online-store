@@ -25,16 +25,6 @@ It includes user authentication, product browsing, a shopping cart, and order hi
 ### Backend
 - API
 - JWT-based authentication 
-### Administration
-
-The application includes a simple administrative system with two levels of user permissions:
-
-- **admin**
-  - can remove **all reviews** from the system
-
-- **logged-in user**
-  - can **edit** their own reviews
-  - can **delete** their own reviews
 
 ###  Database
 
