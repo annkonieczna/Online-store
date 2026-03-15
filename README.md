@@ -22,11 +22,31 @@ It includes user authentication, product browsing, a shopping cart, and order hi
 - Context API
 - CSS
 
-### Backend (mocked)
+### Backend
+- API
+- JWT-based authentication 
+### Administration
 
-- local JSON files
-- simulated API
-- JWT-based authentication (mock)
+The application includes a simple administrative system with two levels of user permissions:
+
+- **admin**
+  - can remove **all reviews** from the system
+
+- **logged-in user**
+  - can **edit** their own reviews
+  - can **delete** their own reviews
+
+###  Database
+
+The application is connected to a backend server with a database.
+
+All operations performed in the system are stored in the database, including:
+
+- user accounts
+- product data
+- reviews
+- shopping carts
+- orders
 
 ### Libraries
 
@@ -49,7 +69,7 @@ It includes user authentication, product browsing, a shopping cart, and order hi
 
 ### 🛍️ Products
 
-- fetching the list of products (mock API)
+- fetching the list of products (API)
 - product search by name
 - filtering products by name, price, and category
 - product details view
